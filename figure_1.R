@@ -118,8 +118,8 @@ background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
 background_metadata$background$cell_proportions <- c(0, 0, 0.5, 0.5)
 
 clusters_metadata1 <- spe_metadata_cluster_template("regular", "ellipsoid", background_metadata)
-clusters_metadata1$cluster_1$cluster_cell_types <- 'A'
-clusters_metadata1$cluster_1$cluster_cell_proportions <- 1
+clusters_metadata1$cluster_1$cluster_cell_types <- c('A', 'B')
+clusters_metadata1$cluster_1$cluster_cell_proportions <- c(0.6, 0.4)
 clusters_metadata1$cluster_1$x_radius <- 25
 clusters_metadata1$cluster_1$y_radius <- 25
 clusters_metadata1$cluster_1$z_radius <- 50
@@ -127,8 +127,8 @@ clusters_metadata1$cluster_1$centre_loc <- c(50, 50, 50)
 clusters_metadata1$cluster_1$x_z_rotation <- 45
 
 clusters_metadata2 <- spe_metadata_cluster_template("regular", "sphere", clusters_metadata1)
-clusters_metadata2$cluster_2$cluster_cell_types <- 'A'
-clusters_metadata2$cluster_2$cluster_cell_proportions <- 1
+clusters_metadata2$cluster_2$cluster_cell_types <- c('A', 'B')
+clusters_metadata2$cluster_2$cluster_cell_proportions <- c(0.6, 0.4)
 clusters_metadata2$cluster_2$radius <- 25
 clusters_metadata2$cluster_2$centre_loc <- c(20, 60, 70)
 
@@ -237,15 +237,15 @@ background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
 background_metadata$background$cell_proportions <- c(0, 0, 0.5, 0.5)
 
 network_metadata <- spe_metadata_cluster_template("regular", "network", background_metadata)
-network_metadata$cluster_1$cluster_cell_types <- 'A'
-network_metadata$cluster_1$cluster_cell_proportions <- 1
+network_metadata$cluster_1$cluster_cell_types <- c('A', 'B', 'D')
+network_metadata$cluster_1$cluster_cell_proportions <- c(0.6, 0.2, 0.2)
 network_metadata$cluster_1$radius <- 75
 network_metadata$cluster_1$centre_loc <- c(50, 50, 50)
 network_metadata$cluster_1$n_edges <- 35
-network_metadata$cluster_1$width <- 10
+network_metadata$cluster_1$width <- 12
   
 network_spe <- simulate_spe_metadata3D(network_metadata, plot_image = F)
-plot_cells3D(network_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
+plot_cells3D(network_spe, plot_cell_types = c('A', 'B', 'D', 'O'), plot_colours = c('orange', 'skyblue', 'orchid', 'lightgray'))
 
 # 6. Combination ----
 background_metadata <- spe_metadata_background_template("random")
@@ -298,13 +298,13 @@ ringed_metadata1$cluster_5$ring_cell_proportions <- 1
 ringed_metadata1$cluster_5$ring_width <- 7
 
 sphere_metadata <- spe_metadata_cluster_template("regular", "sphere", ringed_metadata1)
-sphere_metadata$cluster_6$cluster_cell_types <- 'A'
-sphere_metadata$cluster_6$cluster_cell_proportions <- 1
+sphere_metadata$cluster_6$cluster_cell_types <- c('A', 'D')
+sphere_metadata$cluster_6$cluster_cell_proportions <- c(0.6, 0.4)
 sphere_metadata$cluster_6$radius <- 25
 sphere_metadata$cluster_6$centre_loc <- c(10, 90, 90)
 
 final_spe <- simulate_spe_metadata3D(sphere_metadata, plot_image = F)
 plot_cells3D(final_spe, 
-             plot_cell_types = c('A', 'B', 'C', 'O'), 
-             plot_colours = c('orange', 'skyblue', 'tomato', 'lightgray'))
+             plot_cell_types = c('A', 'B', 'C', 'D', 'O'), 
+             plot_colours = c('orange', 'skyblue', 'tomato', 'orchid', 'lightgray'))
 
