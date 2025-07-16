@@ -1,6 +1,6 @@
 ### Figure 1 (A) [spaSim-3D workflow] ------------
 
-# Alter plot_cells3D function 
+# Alter plot_cells3D function ----
 plot_cells3D <- function(spe,
                          plot_cell_types = NULL,
                          plot_colours = NULL,
@@ -81,11 +81,11 @@ plot_cells3D <- function(spe,
                  colors = plot_colours,
                  marker = list(size = 4))
   
-  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = F, showaxeslabels = F, showticklabels = T, 
+  fig <- fig %>% layout(scene = list(xaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, 
                                                   showline = TRUE, linecolor = 'black', linewidth = 2),
-                                     yaxis = list(title = 'y', showgrid = F, showaxeslabels = F, showticklabels = T,
+                                     yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
                                                   showline = TRUE, linecolor = 'black', linewidth = 2),
-                                     zaxis = list(title = 'z', showgrid = F, showaxeslabels = F, showticklabels = T,
+                                     zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
                                                   showline = TRUE, linecolor = 'black', linewidth = 2)))
   
   return(fig)
@@ -93,7 +93,7 @@ plot_cells3D <- function(spe,
 
 
 
-# 1. Mixed background
+# 1. Mixed background ----
 background_metadata <- spe_metadata_background_template("random")
 background_metadata$background$n_cells <- 2000
 background_metadata$background$length <- 100
@@ -107,7 +107,7 @@ mixed_background_spe <- simulate_spe_metadata3D(background_metadata, plot_image 
 plot_cells3D(mixed_background_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
 
 
-# 2. Clusters
+# 2. Clusters ----
 background_metadata <- spe_metadata_background_template("random")
 background_metadata$background$n_cells <- 2000
 background_metadata$background$length <- 100
@@ -142,7 +142,7 @@ clusters_spe <- simulate_spe_metadata3D(clusters_metadata3, plot_image = F)
 plot_cells3D(clusters_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
 
 
-# 3. Ringed clusters
+# 3. Ringed clusters ----
 background_metadata <- spe_metadata_background_template("random")
 background_metadata$background$n_cells <- 2000
 background_metadata$background$length <- 100
@@ -185,7 +185,7 @@ ringed_metadata3$cluster_3$x_z_rotation <- 30
 ringed_spe <- simulate_spe_metadata3D(ringed_metadata3, plot_image = F)
 plot_cells3D(ringed_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
 
-# 4. Vessels
+# 4. Vessels ----
 background_metadata <- spe_metadata_background_template("random")
 background_metadata$background$n_cells <- 2000
 background_metadata$background$length <- 100
@@ -226,7 +226,7 @@ vessels_metadata4$cluster_4$end_loc <- c(10, 60, 100)
 vessels_spe <- simulate_spe_metadata3D(vessels_metadata4, plot_image = F)
 plot_cells3D(vessels_spe, plot_cell_types = c('C', 'O'), plot_colours = c('tomato', 'lightgray'))
 
-# 5. Networks
+# 5. Networks ----
 background_metadata <- spe_metadata_background_template("random")
 background_metadata$background$n_cells <- 2000
 background_metadata$background$length <- 100
@@ -247,7 +247,7 @@ network_metadata$cluster_1$width <- 10
 network_spe <- simulate_spe_metadata3D(network_metadata, plot_image = F)
 plot_cells3D(network_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
 
-# 6. Combination
+# 6. Combination ----
 background_metadata <- spe_metadata_background_template("random")
 background_metadata$background$n_cells <- 3000
 background_metadata$background$length <- 100
@@ -288,9 +288,9 @@ vessels_metadata4$cluster_4$end_loc <- c(90, 40, 0)
 ringed_metadata1 <- spe_metadata_cluster_template("ring", "ellipsoid", vessels_metadata4)
 ringed_metadata1$cluster_5$cluster_cell_types <- 'A'
 ringed_metadata1$cluster_5$cluster_cell_proportions <- 1
-ringed_metadata1$cluster_5$x_radius <- 20
-ringed_metadata1$cluster_5$y_radius <- 20
-ringed_metadata1$cluster_5$z_radius <- 30
+ringed_metadata1$cluster_5$x_radius <- 30
+ringed_metadata1$cluster_5$y_radius <- 30
+ringed_metadata1$cluster_5$z_radius <- 40
 ringed_metadata1$cluster_5$centre_loc <- c(80, 20, 35)
 ringed_metadata1$cluster_5$x_z_rotation <- 30
 ringed_metadata1$cluster_5$ring_cell_types <- 'B'
