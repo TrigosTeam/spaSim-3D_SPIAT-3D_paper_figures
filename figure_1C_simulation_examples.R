@@ -396,9 +396,117 @@ plot_cells3D(egg_spe,
 # Original
 setwd("/home/dle/R/data3D/spateo")
 mouse_E11.5_embryo <- read.csv("mouse_E11.5_embryo.csv")
+cells <- names(sort(table(mouse_E11.5_embryo$Cell.Type), decreasing = TRUE))[1:12]
 plot_cells3D_df(mouse_E11.5_embryo[sample(nrow(mouse_E11.5_embryo), 100000), ],
                 aspectmode = "data",
-                feature_colname = "Cell.Type")
+                feature_colname = "Cell.Type",
+                plot_cell_types = cells,
+                plot_colours = brewer.pal(12, "Paired"))
+
+
+# SpaSim-3D
+mouse_md <- spe_metadata_background_template("random")
+mouse_md <- spe_metadata_cluster_template("regular", "sphere", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "ellipsoid", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "ellipsoid", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "sphere", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "sphere", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "ellipsoid", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "ellipsoid", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_md)
+mouse_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_md)
+
+
+mouse_md$background$n_cells <- 40000
+mouse_md$background$length <- 100
+mouse_md$background$width <- 100
+mouse_md$background$height <- 50
+mouse_md$background$minimum_distance_between_cells <- 0
+mouse_md$background$cell_types <- "other"
+mouse_md$background$cell_proportions <- 1
+
+mouse_md$cluster_1$cluster_cell_types <- c("Glutamatergic neurons", "Cranial mesenchyme", "Cranial mesoderm")
+mouse_md$cluster_1$cluster_cell_proportions <- c(0.3, 0.4, 0.3)
+mouse_md$cluster_1$radius <- 25
+mouse_md$cluster_1$centre_loc <- c(25, 25, 25)
+
+mouse_md$cluster_2$cluster_cell_types <- c("Sclerotome", "Fibroblasts", "Glutamatergic neurons", "Lateral plate and intermediate mesoderm")
+mouse_md$cluster_2$cluster_cell_proportions <- c(0.4, 0.3, 0.2, 0.1)
+mouse_md$cluster_2$x_radius <- 45
+mouse_md$cluster_2$y_radius <- 20
+mouse_md$cluster_2$z_radius <- 20
+mouse_md$cluster_2$centre_loc <- c(60, 45, 25)
+mouse_md$cluster_2$x_y_rotation <- -10
+mouse_md$cluster_2$x_z_rotation <- 0
+mouse_md$cluster_2$y_z_rotation <- 0
+
+mouse_md$cluster_3$cluster_cell_types <- c("Sclerotome", "Fibroblasts", "Glutamatergic neurons", "Lateral plate and intermediate mesoderm")
+mouse_md$cluster_3$cluster_cell_proportions <- c(0.6, 0.20, 0.15, 0.05)
+mouse_md$cluster_3$x_radius <- 25
+mouse_md$cluster_3$y_radius <- 15
+mouse_md$cluster_3$z_radius <- 20
+mouse_md$cluster_3$centre_loc <- c(80, 20, 25)
+mouse_md$cluster_3$x_y_rotation <- 38
+mouse_md$cluster_3$x_z_rotation <- 0
+mouse_md$cluster_3$y_z_rotation <- 0
+
+mouse_md$cluster_4$cluster_cell_types <- c("Limb progenitors and lateral plate mesenchyme")
+mouse_md$cluster_4$cluster_cell_proportions <- c(1)
+mouse_md$cluster_4$radius <- 9
+mouse_md$cluster_4$centre_loc <- c(60, 45, 40)
+
+mouse_md$cluster_5$cluster_cell_types <- c("Limb progenitors and lateral plate mesenchyme")
+mouse_md$cluster_5$cluster_cell_proportions <- c(1)
+mouse_md$cluster_5$radius <- 10
+mouse_md$cluster_5$centre_loc <- c(75, 15, 40)
+
+mouse_md$cluster_6$cluster_cell_types <- c("Facial mesenchyme")
+mouse_md$cluster_6$cluster_cell_proportions <- c(1)
+mouse_md$cluster_6$x_radius <- 10
+mouse_md$cluster_6$y_radius <- 18
+mouse_md$cluster_6$z_radius <- 15
+mouse_md$cluster_6$centre_loc <- c(35, 25, 30)
+mouse_md$cluster_6$x_y_rotation <- 0
+mouse_md$cluster_6$x_z_rotation <- 0
+mouse_md$cluster_6$y_z_rotation <- 0
+
+mouse_md$cluster_7$cluster_cell_types <- c("Telencephalon neuroectoderm")
+mouse_md$cluster_7$cluster_cell_proportions <- c(1)
+mouse_md$cluster_7$x_radius <- 18
+mouse_md$cluster_7$y_radius <- 10
+mouse_md$cluster_7$z_radius <- 15
+mouse_md$cluster_7$centre_loc <- c(25, 10, 25)
+mouse_md$cluster_7$x_y_rotation <- -60
+mouse_md$cluster_7$x_z_rotation <- 0
+mouse_md$cluster_7$y_z_rotation <- 0
+
+mouse_md$cluster_8$cluster_cell_types <- c("Spinal cord neuroectoderm")
+mouse_md$cluster_8$cluster_cell_proportions <- c(1)
+mouse_md$cluster_8$radius <- 5
+mouse_md$cluster_8$start_loc <- c(20, 60, 25)
+mouse_md$cluster_8$end_loc <- c(65, 64, 25)
+
+
+mouse_md$cluster_9$cluster_cell_types <- c("Spinal cord neuroectoderm")
+mouse_md$cluster_9$cluster_cell_proportions <- c(1)
+mouse_md$cluster_9$radius <- 5
+mouse_md$cluster_9$start_loc <- c(65, 64, 25)
+mouse_md$cluster_9$end_loc <- c(100, 42, 25)
+
+mouse_md$cluster_10$cluster_cell_types <- c("Spinal cord neuroectoderm")
+mouse_md$cluster_10$cluster_cell_proportions <- c(1)
+mouse_md$cluster_10$radius <- 5
+mouse_md$cluster_10$start_loc <- c(100, 40, 25)
+mouse_md$cluster_10$end_loc <- c(100, 25, 25)
+
+mouse_spe <- simulate_spe_metadata3D(mouse_md)
+plot_cells3D(mouse_spe,
+             feature_colname = "Cell.Type",
+             plot_cell_types = cells,
+             plot_colours = brewer.pal(12, "Paired"))
+
+
 
 
 ### 4. Ductal epithelium network from human pancreas ----
