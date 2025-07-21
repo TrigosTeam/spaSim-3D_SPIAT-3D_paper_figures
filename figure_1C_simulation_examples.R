@@ -78,13 +78,13 @@ plot_cells3D_df <- function(df,
                  colors = plot_colours,
                  marker = list(size = 3))
   
-  fig <- fig %>% layout(scene = list(xaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, gridwidth = 0, 
-                                                  titlefont = list(size = 20), tickfont = list(size = 15)),
-                                     yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, gridwidth = 0,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15)),
-                                     zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, gridwidth = 0,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15)),
-                                     aspectmode = aspectmode)) # Alternative is 'data' or "manual' or 'cube'
+  fig <- fig %>% layout(scene = list(xaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, 
+                                                  showline = TRUE, linecolor = 'black', linewidth = 2),
+                                     yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
+                                                  showline = TRUE, linecolor = 'black', linewidth = 2),
+                                     zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
+                                                  showline = TRUE, linecolor = 'black', linewidth = 2),
+                                     aspectmode = aspectmode))
   
   
   return(fig)
@@ -181,11 +181,11 @@ plot_cells3D <- function(spe,
                  colors = plot_colours,
                  marker = list(size = 3))
   
-  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = F, showaxeslabels = T, showticklabels = T, 
+  fig <- fig %>% layout(scene = list(xaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, 
                                                   showline = TRUE, linecolor = 'black', linewidth = 2),
-                                     yaxis = list(title = 'y', showgrid = F, showaxeslabels = T, showticklabels = T,
+                                     yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
                                                   showline = TRUE, linecolor = 'black', linewidth = 2),
-                                     zaxis = list(title = 'z', showgrid = F, showaxeslabels = T, showticklabels = T,
+                                     zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
                                                   showline = TRUE, linecolor = 'black', linewidth = 2)))
   
   return(fig)
@@ -330,8 +330,8 @@ egg_md$cluster_1$y_z_rotation <- 0
 egg_md$cluster_1$inner_ring_cell_types <- "fat body"
 egg_md$cluster_1$inner_ring_cell_proportions <- 1
 egg_md$cluster_1$inner_ring_width <- 4
-egg_md$cluster_1$outer_ring_cell_types <- "epidermis"
-egg_md$cluster_1$outer_ring_cell_proportions <- 1
+egg_md$cluster_1$outer_ring_cell_types <- c("epidermis", "carcass", "muscle")
+egg_md$cluster_1$outer_ring_cell_proportions <- c(0.8, 0.1, 0.1)
 egg_md$cluster_1$outer_ring_width <- 4
 
 egg_md$cluster_2$cluster_cell_types <- "muscle"
