@@ -103,7 +103,7 @@ cluster_metadata$background$cell_types <- c('A', 'B', 'O')
 cluster_metadata$background$cell_proportions <- c(0.02, 0, 0.98)
 
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
-cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.6, 0.4)
+cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.5, 0.5)
 cluster_metadata$cluster_1$x_radius <- 150
 cluster_metadata$cluster_1$x_radius <- 150
 cluster_metadata$cluster_1$x_radius <- 200
@@ -148,6 +148,13 @@ plot_cells3D_with_slices <- function(spe,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500)),
                                      aspectmode = "cube"))
   
+  vertices <- data.frame(x = c(0, 0, 500, 500, 0, 0, 500, 500),
+                         y = c(0, 500, 0, 500, 0, 500, 0, 500),
+                         z = c(50, 50, 50, 50, 100, 100, 100, 100))
+  
+  faces_temp <- data.frame(i = c(1, 4, 5, 8, 1, 6),
+                           j = c(2, 2, 6, 6, 5, 5),
+                           k = c(3, 3, 7, 7, 2, 2))
   
   fig <- fig %>%
     add_trace(
@@ -158,15 +165,19 @@ plot_cells3D_with_slices <- function(spe,
       i = faces_temp[, 1] - 1, 
       j = faces_temp[, 2] - 1, 
       k = faces_temp[, 3] - 1,
-      opacity = opacity_level,
-      facecolor = rep(alpha_hull_colours[i], nrow(faces_temp))
+      opacity = 0.5,
+      facecolor = rep("red", nrow(faces_temp))
     )
   
   methods::show(fig)
 }
 
-plot_cells3D_with_slices(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('orange', 'skyblue'))
-
 slice_positions_temp <- list(c(50, 100), c(150, 200), c(250, 300))
+
+plot_cells3D_with_slices(spe_cluster, 
+                         plot_cell_types = c('A', 'B'), 
+                         plot_colours = c('orange', 'skyblue'),
+                         slice_positions = slice_positions_temp)
+
 
 
