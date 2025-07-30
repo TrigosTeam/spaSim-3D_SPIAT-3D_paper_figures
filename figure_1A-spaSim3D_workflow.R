@@ -91,9 +91,24 @@ plot_cells3D <- function(spe,
 
 
 
+# 0. Blank background ----
+background_metadata <- spe_metadata_background_template("random")
+background_metadata$background$n_cells <- 10000
+background_metadata$background$length <- 100
+background_metadata$background$width <- 100
+background_metadata$background$height <- 100
+background_metadata$background$minimum_distance_between_cells <- 0
+background_metadata$background$cell_types <- c('O', 'A')
+background_metadata$background$cell_proportions <- c(0.99, 0.01)
+
+blank_background_spe <- simulate_spe_metadata3D(background_metadata, plot_image = F)
+spatialCoords(blank_background_spe) <- spatialCoords(blank_background_spe) + 1000
+plot_cells3D(blank_background_spe, plot_cell_types = c('O', 'A'), plot_colours = c('lightgray', 'orange'))
+
+
 # 1. Mixed background ----
 background_metadata <- spe_metadata_background_template("random")
-background_metadata$background$n_cells <- 2000
+background_metadata$background$n_cells <- 20000
 background_metadata$background$length <- 100
 background_metadata$background$width <- 100
 background_metadata$background$height <- 100
@@ -102,137 +117,153 @@ background_metadata$background$cell_types <- c('A', 'B', 'O')
 background_metadata$background$cell_proportions <- c(0.3, 0.1, 0.6)
 
 mixed_background_spe <- simulate_spe_metadata3D(background_metadata, plot_image = F)
-plot_cells3D(mixed_background_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
+spatialCoords(mixed_background_spe) <- spatialCoords(mixed_background_spe) + 1000
+plot_cells3D(mixed_background_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#bb7438', '#7f64b9', 'lightgray'))
 
 
 # 2. Clusters ----
 background_metadata <- spe_metadata_background_template("random")
-background_metadata$background$n_cells <- 2000
-background_metadata$background$length <- 100
-background_metadata$background$width <- 100
-background_metadata$background$height <- 100
-background_metadata$background$minimum_distance_between_cells <- 0
-background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
-background_metadata$background$cell_proportions <- c(0, 0, 0.5, 0.5)
+clusters_metadata <- spe_metadata_cluster_template("regular", "ellipsoid", background_metadata)
+clusters_metadata <- spe_metadata_cluster_template("regular", "sphere", clusters_metadata)
+clusters_metadata <- spe_metadata_cluster_template("regular", "sphere", clusters_metadata)
 
-clusters_metadata1 <- spe_metadata_cluster_template("regular", "ellipsoid", background_metadata)
-clusters_metadata1$cluster_1$cluster_cell_types <- c('A', 'B')
-clusters_metadata1$cluster_1$cluster_cell_proportions <- c(0.6, 0.4)
-clusters_metadata1$cluster_1$x_radius <- 25
-clusters_metadata1$cluster_1$y_radius <- 25
-clusters_metadata1$cluster_1$z_radius <- 50
-clusters_metadata1$cluster_1$centre_loc <- c(50, 50, 50)
-clusters_metadata1$cluster_1$x_z_rotation <- 45
+clusters_metadata$background$n_cells <- 20000
+clusters_metadata$background$length <- 100
+clusters_metadata$background$width <- 100
+clusters_metadata$background$height <- 100
+clusters_metadata$background$minimum_distance_between_cells <- 0
+clusters_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
+clusters_metadata$background$cell_proportions <- c(0, 0, 0.25, 0.75)
 
-clusters_metadata2 <- spe_metadata_cluster_template("regular", "sphere", clusters_metadata1)
-clusters_metadata2$cluster_2$cluster_cell_types <- c('A', 'B')
-clusters_metadata2$cluster_2$cluster_cell_proportions <- c(0.6, 0.4)
-clusters_metadata2$cluster_2$radius <- 25
-clusters_metadata2$cluster_2$centre_loc <- c(20, 60, 70)
+clusters_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
+clusters_metadata$cluster_1$cluster_cell_proportions <- c(0.6, 0.4)
+clusters_metadata$cluster_1$x_radius <- 25
+clusters_metadata$cluster_1$y_radius <- 25
+clusters_metadata$cluster_1$z_radius <- 50
+clusters_metadata$cluster_1$centre_loc <- c(50, 50, 50)
+clusters_metadata$cluster_1$x_z_rotation <- 45
 
-clusters_metadata3 <- spe_metadata_cluster_template("regular", "sphere", clusters_metadata2)
-clusters_metadata3$cluster_3$cluster_cell_types <- 'B'
-clusters_metadata3$cluster_3$cluster_cell_proportions <- 1
-clusters_metadata3$cluster_3$radius <- 50
-clusters_metadata3$cluster_3$centre_loc <- c(100, 0, 100)
 
-clusters_spe <- simulate_spe_metadata3D(clusters_metadata3, plot_image = F)
-plot_cells3D(clusters_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
+clusters_metadata$cluster_2$cluster_cell_types <- c('A', 'B')
+clusters_metadata$cluster_2$cluster_cell_proportions <- c(0.6, 0.4)
+clusters_metadata$cluster_2$radius <- 25
+clusters_metadata$cluster_2$centre_loc <- c(20, 60, 70)
+
+
+clusters_metadata$cluster_3$cluster_cell_types <- 'B'
+clusters_metadata$cluster_3$cluster_cell_proportions <- 1
+clusters_metadata$cluster_3$radius <- 50
+clusters_metadata$cluster_3$centre_loc <- c(100, 0, 100)
+
+clusters_spe <- simulate_spe_metadata3D(clusters_metadata, plot_image = F)
+spatialCoords(clusters_spe) <- spatialCoords(clusters_spe) + 1000
+plot_cells3D(clusters_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#bb7438', '#7f64b9', 'lightgray'))
 
 
 # 3. Ringed clusters ----
 background_metadata <- spe_metadata_background_template("random")
-background_metadata$background$n_cells <- 2000
-background_metadata$background$length <- 100
-background_metadata$background$width <- 100
-background_metadata$background$height <- 100
-background_metadata$background$minimum_distance_between_cells <- 0
-background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
-background_metadata$background$cell_proportions <- c(0, 0, 0.5, 0.5)
+ringed_metadata <- spe_metadata_cluster_template("ring", "ellipsoid", background_metadata)
+ringed_metadata <- spe_metadata_cluster_template("ring", "sphere", ringed_metadata)
+ringed_metadata <- spe_metadata_cluster_template("regular", "ellipsoid", ringed_metadata)
 
-ringed_metadata1 <- spe_metadata_cluster_template("ring", "ellipsoid", background_metadata)
-ringed_metadata1$cluster_1$cluster_cell_types <- 'A'
-ringed_metadata1$cluster_1$cluster_cell_proportions <- 1
-ringed_metadata1$cluster_1$x_radius <- 25
-ringed_metadata1$cluster_1$y_radius <- 25
-ringed_metadata1$cluster_1$z_radius <- 40
-ringed_metadata1$cluster_1$centre_loc <- c(50, 50, 35)
-ringed_metadata1$cluster_1$x_z_rotation <- 30
-ringed_metadata1$cluster_1$ring_cell_types <- 'B'
-ringed_metadata1$cluster_1$ring_cell_proportions <- 1
-ringed_metadata1$cluster_1$ring_width <- 7
+ringed_metadata$background$n_cells <- 20000
+ringed_metadata$background$length <- 100
+ringed_metadata$background$width <- 100
+ringed_metadata$background$height <- 100
+ringed_metadata$background$minimum_distance_between_cells <- 0
+ringed_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
+ringed_metadata$background$cell_proportions <- c(0, 0, 0.25, 0.75)
 
-ringed_metadata2 <- spe_metadata_cluster_template("ring", "sphere", ringed_metadata1)
-ringed_metadata2$cluster_2$cluster_cell_types <- 'A'
-ringed_metadata2$cluster_2$cluster_cell_proportions <- 1
-ringed_metadata2$cluster_2$radius <- 25
-ringed_metadata2$cluster_2$centre_loc <- c(40, 60, 70)
-ringed_metadata2$cluster_2$ring_cell_types <- 'B'
-ringed_metadata2$cluster_2$ring_cell_proportions <- 1
-ringed_metadata2$cluster_2$ring_width <- 7
+ringed_metadata$cluster_1$cluster_cell_types <- 'A'
+ringed_metadata$cluster_1$cluster_cell_proportions <- 1
+ringed_metadata$cluster_1$x_radius <- 25
+ringed_metadata$cluster_1$y_radius <- 25
+ringed_metadata$cluster_1$z_radius <- 40
+ringed_metadata$cluster_1$centre_loc <- c(50, 50, 35)
+ringed_metadata$cluster_1$x_z_rotation <- 30
+ringed_metadata$cluster_1$ring_cell_types <- 'B'
+ringed_metadata$cluster_1$ring_cell_proportions <- 1
+ringed_metadata$cluster_1$ring_width <- 7
 
-ringed_metadata3 <- spe_metadata_cluster_template("regular", "ellipsoid", ringed_metadata2)
-ringed_metadata3$cluster_3$cluster_cell_types <- 'A'
-ringed_metadata3$cluster_3$cluster_cell_proportions <- 1
-ringed_metadata3$cluster_3$x_radius <- 25
-ringed_metadata3$cluster_3$y_radius <- 25
-ringed_metadata3$cluster_3$z_radius <- 40
-ringed_metadata3$cluster_3$centre_loc <- c(50, 50, 35)
-ringed_metadata3$cluster_3$x_z_rotation <- 30
+ringed_metadata$cluster_2$cluster_cell_types <- 'A'
+ringed_metadata$cluster_2$cluster_cell_proportions <- 1
+ringed_metadata$cluster_2$radius <- 25
+ringed_metadata$cluster_2$centre_loc <- c(40, 60, 70)
+ringed_metadata$cluster_2$ring_cell_types <- 'B'
+ringed_metadata$cluster_2$ring_cell_proportions <- 1
+ringed_metadata$cluster_2$ring_width <- 7
 
-ringed_spe <- simulate_spe_metadata3D(ringed_metadata3, plot_image = F)
-plot_cells3D(ringed_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('orange', 'skyblue', 'lightgray'))
+ringed_metadata$cluster_3$cluster_cell_types <- 'A'
+ringed_metadata$cluster_3$cluster_cell_proportions <- 1
+ringed_metadata$cluster_3$x_radius <- 25
+ringed_metadata$cluster_3$y_radius <- 25
+ringed_metadata$cluster_3$z_radius <- 40
+ringed_metadata$cluster_3$centre_loc <- c(50, 50, 35)
+ringed_metadata$cluster_3$x_z_rotation <- 30
+
+ringed_spe <- simulate_spe_metadata3D(ringed_metadata, plot_image = F)
+spatialCoords(ringed_spe) <- spatialCoords(ringed_spe) + 1000
+plot_cells3D(ringed_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#bb7438', '#7f64b9', 'lightgray'))
 
 # 4. Vessels ----
 background_metadata <- spe_metadata_background_template("random")
-background_metadata$background$n_cells <- 2000
-background_metadata$background$length <- 100
-background_metadata$background$width <- 100
-background_metadata$background$height <- 100
-background_metadata$background$minimum_distance_between_cells <- 0
-background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
-background_metadata$background$cell_proportions <- c(0, 0, 0.5, 0.5)
+vessels_metadata <- spe_metadata_cluster_template("regular", "cylinder", background_metadata)
+vessels_metadata <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata)
+vessels_metadata <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata)
+vessels_metadata <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata)
+vessels_metadata <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata)
 
-vessels_metadata1 <- spe_metadata_cluster_template("regular", "cylinder", background_metadata)
-vessels_metadata1$cluster_1$cluster_cell_types <- 'C'
-vessels_metadata1$cluster_1$cluster_cell_proportions <- 1
-vessels_metadata1$cluster_1$radius <- 12
-vessels_metadata1$cluster_1$start_loc <- c(100, 80, 20)
-vessels_metadata1$cluster_1$end_loc <- c(30, 30, 70)
+vessels_metadata$background$n_cells <- 20000
+vessels_metadata$background$length <- 100
+vessels_metadata$background$width <- 100
+vessels_metadata$background$height <- 100
+vessels_metadata$background$minimum_distance_between_cells <- 0
+vessels_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
+vessels_metadata$background$cell_proportions <- c(0, 0, 0.25, 0.75)
 
-vessels_metadata2 <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata1)
-vessels_metadata2$cluster_2$cluster_cell_types <- 'C'
-vessels_metadata2$cluster_2$cluster_cell_proportions <- 1
-vessels_metadata2$cluster_2$radius <- 9
-vessels_metadata2$cluster_2$start_loc <- c(79, 65, 35)
-vessels_metadata2$cluster_2$end_loc <- c(30, 80, 50)
+vessels_metadata$cluster_1$cluster_cell_types <- 'C'
+vessels_metadata$cluster_1$cluster_cell_proportions <- 1
+vessels_metadata$cluster_1$radius <- 12
+vessels_metadata$cluster_1$start_loc <- c(100, 80, 20)
+vessels_metadata$cluster_1$end_loc <- c(30, 30, 70)
 
-vessels_metadata3 <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata2)
-vessels_metadata3$cluster_3$cluster_cell_types <- 'C'
-vessels_metadata3$cluster_3$cluster_cell_proportions <- 1
-vessels_metadata3$cluster_3$radius <- 10
-vessels_metadata3$cluster_3$start_loc <- c(65, 55, 45)
-vessels_metadata3$cluster_3$end_loc <- c(60, 0, 100)
+vessels_metadata$cluster_2$cluster_cell_types <- 'C'
+vessels_metadata$cluster_2$cluster_cell_proportions <- 1
+vessels_metadata$cluster_2$radius <- 9
+vessels_metadata$cluster_2$start_loc <- c(79, 65, 35)
+vessels_metadata$cluster_2$end_loc <- c(30, 80, 50)
 
-vessels_metadata4 <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata3)
-vessels_metadata4$cluster_4$cluster_cell_types <- 'C'
-vessels_metadata4$cluster_4$cluster_cell_proportions <- 1
-vessels_metadata4$cluster_4$radius <- 8
-vessels_metadata4$cluster_4$start_loc <- c(30, 30, 70)
-vessels_metadata4$cluster_4$end_loc <- c(10, 60, 100)
+vessels_metadata$cluster_3$cluster_cell_types <- 'C'
+vessels_metadata$cluster_3$cluster_cell_proportions <- 1
+vessels_metadata$cluster_3$radius <- 10
+vessels_metadata$cluster_3$start_loc <- c(65, 55, 45)
+vessels_metadata$cluster_3$end_loc <- c(60, 0, 100)
 
-vessels_spe <- simulate_spe_metadata3D(vessels_metadata4, plot_image = F)
-plot_cells3D(vessels_spe, plot_cell_types = c('C', 'O'), plot_colours = c('tomato', 'lightgray'))
+vessels_metadata$cluster_4$cluster_cell_types <- 'C'
+vessels_metadata$cluster_4$cluster_cell_proportions <- 1
+vessels_metadata$cluster_4$radius <- 8
+vessels_metadata$cluster_4$start_loc <- c(30, 30, 70)
+vessels_metadata$cluster_4$end_loc <- c(10, 60, 100)
+
+vessels_metadata$cluster_5$cluster_cell_types <- 'C'
+vessels_metadata$cluster_5$cluster_cell_proportions <- 1
+vessels_metadata$cluster_5$radius <- 8
+vessels_metadata$cluster_5$start_loc <- c(30, 80, 50)
+vessels_metadata$cluster_5$end_loc <- c(0, 50, 60)
+
+vessels_spe <- simulate_spe_metadata3D(vessels_metadata, plot_image = F)
+spatialCoords(vessels_spe) <- spatialCoords(vessels_spe) + 1000
+plot_cells3D(vessels_spe, plot_cell_types = c('C', 'O'), plot_colours = c('#b94b75', 'lightgray'))
 
 # 5. Networks ----
 background_metadata <- spe_metadata_background_template("random")
-background_metadata$background$n_cells <- 2000
+background_metadata$background$n_cells <- 20000
 background_metadata$background$length <- 100
 background_metadata$background$width <- 100
 background_metadata$background$height <- 100
 background_metadata$background$minimum_distance_between_cells <- 0
 background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
-background_metadata$background$cell_proportions <- c(0, 0, 0.5, 0.5)
+background_metadata$background$cell_proportions <- c(0, 0, 0.25, 0.75)
 
 network_metadata <- spe_metadata_cluster_template("regular", "network", background_metadata)
 network_metadata$cluster_1$cluster_cell_types <- c('A', 'B', 'D')
@@ -243,66 +274,81 @@ network_metadata$cluster_1$n_edges <- 35
 network_metadata$cluster_1$width <- 12
   
 network_spe <- simulate_spe_metadata3D(network_metadata, plot_image = F)
-plot_cells3D(network_spe, plot_cell_types = c('A', 'B', 'D', 'O'), plot_colours = c('orange', 'skyblue', 'orchid', 'lightgray'))
+spatialCoords(network_spe) <- spatialCoords(network_spe) + 1000
+plot_cells3D(network_spe, plot_cell_types = c('A', 'B', 'D', 'O'), plot_colours = c('#bb7438', '#7f64b9', '#72ac5c', 'lightgray'))
 
 # 6. Combination ----
-background_metadata <- spe_metadata_background_template("random")
-background_metadata$background$n_cells <- 3000
-background_metadata$background$length <- 100
-background_metadata$background$width <- 100
-background_metadata$background$height <- 100
-background_metadata$background$minimum_distance_between_cells <- 0
-background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
-background_metadata$background$cell_proportions <- c(0.025, 0.025, 0.30, 0.65)
+combination_metadata <- spe_metadata_background_template("random")
+combination_metadata <- spe_metadata_cluster_template("regular", "cylinder", combination_metadata)
+combination_metadata <- spe_metadata_cluster_template("regular", "cylinder", combination_metadata)
+combination_metadata <- spe_metadata_cluster_template("regular", "cylinder", combination_metadata)
+combination_metadata <- spe_metadata_cluster_template("regular", "cylinder", combination_metadata)
+combination_metadata <- spe_metadata_cluster_template("ring", "ellipsoid", combination_metadata)
+combination_metadata <- spe_metadata_cluster_template("regular", "sphere", combination_metadata)
 
-vessels_metadata1 <- spe_metadata_cluster_template("regular", "cylinder", background_metadata)
-vessels_metadata1$cluster_1$cluster_cell_types <- 'C'
-vessels_metadata1$cluster_1$cluster_cell_proportions <- 1
-vessels_metadata1$cluster_1$radius <- 12
-vessels_metadata1$cluster_1$start_loc <- c(0, 20, 80)
-vessels_metadata1$cluster_1$end_loc <- c(70, 70, 30)
+combination_metadata$background$n_cells <- 20000
+combination_metadata$background$length <- 100
+combination_metadata$background$width <- 100
+combination_metadata$background$height <- 100
+combination_metadata$background$minimum_distance_between_cells <- 0
+combination_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
+combination_metadata$background$cell_proportions <- c(0.01, 0.01, 0.20, 0.78)
 
-vessels_metadata2 <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata1)
-vessels_metadata2$cluster_2$cluster_cell_types <- 'C'
-vessels_metadata2$cluster_2$cluster_cell_proportions <- 1
-vessels_metadata2$cluster_2$radius <- 9
-vessels_metadata2$cluster_2$start_loc <- c(21, 35, 65)
-vessels_metadata2$cluster_2$end_loc <- c(70, 20, 50)
+combination_metadata$cluster_1$cluster_cell_types <- 'C'
+combination_metadata$cluster_1$cluster_cell_proportions <- 1
+combination_metadata$cluster_1$radius <- 12
+combination_metadata$cluster_1$start_loc <- c(0, 20, 80)
+combination_metadata$cluster_1$end_loc <- c(70, 70, 30)
 
-vessels_metadata3 <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata2)
-vessels_metadata3$cluster_3$cluster_cell_types <- 'C'
-vessels_metadata3$cluster_3$cluster_cell_proportions <- 1
-vessels_metadata3$cluster_3$radius <- 10
-vessels_metadata3$cluster_3$start_loc <- c(45, 55, 65)
-vessels_metadata3$cluster_3$end_loc <- c(40, 100, 0)
+combination_metadata$cluster_2$cluster_cell_types <- 'C'
+combination_metadata$cluster_2$cluster_cell_proportions <- 1
+combination_metadata$cluster_2$radius <- 9
+combination_metadata$cluster_2$start_loc <- c(21, 35, 65)
+combination_metadata$cluster_2$end_loc <- c(70, 20, 50)
 
-vessels_metadata4 <- spe_metadata_cluster_template("regular", "cylinder", vessels_metadata3)
-vessels_metadata4$cluster_4$cluster_cell_types <- 'C'
-vessels_metadata4$cluster_4$cluster_cell_proportions <- 1
-vessels_metadata4$cluster_4$radius <- 8
-vessels_metadata4$cluster_4$start_loc <- c(70, 70, 30)
-vessels_metadata4$cluster_4$end_loc <- c(90, 40, 0)
+combination_metadata$cluster_3$cluster_cell_types <- 'C'
+combination_metadata$cluster_3$cluster_cell_proportions <- 1
+combination_metadata$cluster_3$radius <- 10
+combination_metadata$cluster_3$start_loc <- c(60, 70, 40)
+combination_metadata$cluster_3$end_loc <- c(0, 100, 50)
 
-ringed_metadata1 <- spe_metadata_cluster_template("ring", "ellipsoid", vessels_metadata4)
-ringed_metadata1$cluster_5$cluster_cell_types <- 'A'
-ringed_metadata1$cluster_5$cluster_cell_proportions <- 1
-ringed_metadata1$cluster_5$x_radius <- 30
-ringed_metadata1$cluster_5$y_radius <- 30
-ringed_metadata1$cluster_5$z_radius <- 40
-ringed_metadata1$cluster_5$centre_loc <- c(80, 20, 35)
-ringed_metadata1$cluster_5$x_z_rotation <- 30
-ringed_metadata1$cluster_5$ring_cell_types <- 'B'
-ringed_metadata1$cluster_5$ring_cell_proportions <- 1
-ringed_metadata1$cluster_5$ring_width <- 7
+combination_metadata$cluster_4$cluster_cell_types <- 'C'
+combination_metadata$cluster_4$cluster_cell_proportions <- 1
+combination_metadata$cluster_4$radius <- 8
+combination_metadata$cluster_4$start_loc <- c(70, 70, 30)
+combination_metadata$cluster_4$end_loc <- c(90, 40, 0)
 
-sphere_metadata <- spe_metadata_cluster_template("regular", "sphere", ringed_metadata1)
-sphere_metadata$cluster_6$cluster_cell_types <- c('A', 'D')
-sphere_metadata$cluster_6$cluster_cell_proportions <- c(0.6, 0.4)
-sphere_metadata$cluster_6$radius <- 25
-sphere_metadata$cluster_6$centre_loc <- c(10, 90, 90)
+combination_metadata$cluster_5$cluster_cell_types <- 'A'
+combination_metadata$cluster_5$cluster_cell_proportions <- 1
+combination_metadata$cluster_5$x_radius <- 30
+combination_metadata$cluster_5$y_radius <- 30
+combination_metadata$cluster_5$z_radius <- 40
+combination_metadata$cluster_5$centre_loc <- c(80, 20, 35)
+combination_metadata$cluster_5$x_z_rotation <- 30
+combination_metadata$cluster_5$ring_cell_types <- 'B'
+combination_metadata$cluster_5$ring_cell_proportions <- 1
+combination_metadata$cluster_5$ring_width <- 7
 
-final_spe <- simulate_spe_metadata3D(sphere_metadata, plot_image = F)
+
+combination_metadata$cluster_6$cluster_cell_types <- c('A', 'D')
+combination_metadata$cluster_6$cluster_cell_proportions <- c(0.6, 0.4)
+combination_metadata$cluster_6$radius <- 25
+combination_metadata$cluster_6$centre_loc <- c(10, 90, 90)
+
+final_spe <- simulate_spe_metadata3D(combination_metadata, plot_image = F)
+spatialCoords(final_spe) <- spatialCoords(final_spe) + 1000
 plot_cells3D(final_spe, 
              plot_cell_types = c('A', 'B', 'C', 'D', 'O'), 
-             plot_colours = c('orange', 'skyblue', 'tomato', 'orchid', 'lightgray'))
+             plot_colours = c('#bb7438', '#7f64b9', '#b94b75', '#72ac5c', 'lightgray'))
 
+
+# Apply clustering algorithms to combination simulation
+# ah_spe <- alpha_hull_clustering3D(final_spe, 'B', 5, 100)
+# ah_spe <- alpha_hull_clustering3D(final_spe, 'C', 5, 100)
+# ah_spe <- alpha_hull_clustering3D(final_spe, c('A', 'D'), 3.3, 200)
+# 
+# gbc_spe <- grid_based_clustering3D(final_spe, 'B', 10, 100)
+# gbc_spe <- grid_based_clustering3D(final_spe, 'C', 10, 100)
+# gbc_spe <- grid_based_clustering3D(final_spe, c('A', 'D'), 10, 100)
+# 
+# plot_alpha_hull_clusters3D(ah_spe)

@@ -74,7 +74,7 @@ plot_cells3D_df <- function(df,
                  x = ~Cell.X.Position,
                  y = ~Cell.Y.Position,
                  z = ~Cell.Z.Position,
-                 color = df[[feature_colname]],
+                 color = ~Cell.Type,
                  colors = plot_colours,
                  marker = list(size = 3))
   
@@ -83,8 +83,7 @@ plot_cells3D_df <- function(df,
                                      yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
                                                   showline = TRUE, linecolor = 'black', linewidth = 2),
                                      zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  showline = TRUE, linecolor = 'black', linewidth = 2),
-                                     aspectmode = aspectmode))
+                                                  showline = TRUE, linecolor = 'black', linewidth = 2)))
   
   
   return(fig)
@@ -186,7 +185,8 @@ plot_cells3D <- function(spe,
                                      yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
                                                   showline = TRUE, linecolor = 'black', linewidth = 2),
                                      zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  showline = TRUE, linecolor = 'black', linewidth = 2)))
+                                                  showline = TRUE, linecolor = 'black', linewidth = 2),
+                                     aspectmode = "manual"))
   
   return(fig)
 }
@@ -198,9 +198,9 @@ plot_cells3D <- function(spe,
 setwd("/home/dle/R/data3D/merfish_squidpy")
 merfish_squidpy_df <- read.csv("merfish_squidpy_df.csv")
 merfish_squidpy_cell_type_color_mapping <- read.csv("merfish_squidpy_cell_type_color_mapping.csv")
-merfish_squidpy_df$Cell.X.Position <- merfish_squidpy_df$Cell.X.Position * 1.8
-merfish_squidpy_df$Cell.Y.Position <- merfish_squidpy_df$Cell.Y.Position * 1.8
-merfish_squidpy_df$Cell.Z.Position <- (as.integer(merfish_squidpy_df$Cell.Z.Position) + 29) / 100
+merfish_squidpy_df$Cell.X.Position <- merfish_squidpy_df$Cell.X.Position * 1.8 + 1000
+merfish_squidpy_df$Cell.Y.Position <- merfish_squidpy_df$Cell.Y.Position * 1.8 + 1000
+merfish_squidpy_df$Cell.Z.Position <- (as.integer(merfish_squidpy_df$Cell.Z.Position) + 29) / 100 + 1000
 plot_cells3D_df(merfish_squidpy_df,
                 merfish_squidpy_cell_type_color_mapping$Cell_Type,
                 merfish_squidpy_cell_type_color_mapping$Color,
@@ -269,6 +269,7 @@ mouse_hypothalamus_md$cluster_5$x_z_rotation <- 0
 mouse_hypothalamus_md$cluster_5$y_z_rotation <- 0
 
 mouse_hypothalamus_spe <- simulate_spe_metadata3D(mouse_hypothalamus_md)
+spatialCoords(mouse_hypothalamus_spe) <- spatialCoords(mouse_hypothalamus_spe) + 1000
 plot_cells3D(mouse_hypothalamus_spe, 
              plot_cell_types = 
                c("Ambiguous", "Astrocyte", "Endothelial", 
@@ -284,9 +285,9 @@ plot_cells3D(mouse_hypothalamus_spe,
 # Original
 setwd("/home/dle/R/data3D/stomics_fly")
 E16_18h_df <- read.csv("E16-18h_df.csv")
-E16_18h_df$Cell.Z.Position <- E16_18h_df$Cell.Z.Position * 10
-E16_18h_df$Cell.X.Position <- E16_18h_df$Cell.X.Position * 10
-E16_18h_df$Cell.Y.Position <- E16_18h_df$Cell.Y.Position * 10
+E16_18h_df$Cell.Z.Position <- E16_18h_df$Cell.Z.Position * 10 + 1000
+E16_18h_df$Cell.X.Position <- E16_18h_df$Cell.X.Position * 10 + 1000
+E16_18h_df$Cell.Y.Position <- E16_18h_df$Cell.Y.Position * 10 + 1000
 plot_cells3D_df(E16_18h_df, aspectmode = "data", 
                 plot_cell_types = 
                   c("salivary gland", "epidermis", "CNS", "carcass", "fat body",
@@ -385,11 +386,13 @@ egg_md$cluster_8$radius <- 6
 egg_md$cluster_8$centre_loc <- c(80, 50, 32)
 
 egg_spe <- simulate_spe_metadata3D(egg_md)
+spatialCoords(egg_spe) <- spatialCoords(egg_spe) + 1000
+
 plot_cells3D(egg_spe, 
              plot_cell_types = 
                c("salivary gland", "epidermis", "CNS", "carcass", "fat body",
                  "muscle", "trachea", "midgut", "hemolymph", "foregut"),
-             plot_colours = viridis::turbo(10))
+             plot_colours = viridis::turbo(10))s
 
 
 ### 3. Mouse embryo (E11.5h) ----
@@ -397,6 +400,10 @@ plot_cells3D(egg_spe,
 setwd("/home/dle/R/data3D/spateo")
 mouse_E11.5_embryo <- read.csv("mouse_E11.5_embryo.csv")
 cells <- names(sort(table(mouse_E11.5_embryo$Cell.Type), decreasing = TRUE))[1:12]
+
+mouse_E11.5_embryo$Cell.X.Position <- mouse_E11.5_embryo$Cell.X.Position + 1000
+mouse_E11.5_embryo$Cell.Y.Position <- mouse_E11.5_embryo$Cell.Y.Position + 1000
+mouse_E11.5_embryo$Cell.Z.Position <- mouse_E11.5_embryo$Cell.Z.Position + 1000
 plot_cells3D_df(mouse_E11.5_embryo[sample(nrow(mouse_E11.5_embryo), 100000), ],
                 aspectmode = "data",
                 feature_colname = "Cell.Type",
@@ -501,6 +508,7 @@ mouse_md$cluster_10$start_loc <- c(100, 40, 25)
 mouse_md$cluster_10$end_loc <- c(100, 25, 25)
 
 mouse_spe <- simulate_spe_metadata3D(mouse_md)
+spatialCoords(mouse_spe) <- spatialCoords(mouse_spe) + 1000
 plot_cells3D(mouse_spe,
              feature_colname = "Cell.Type",
              plot_cell_types = cells,
