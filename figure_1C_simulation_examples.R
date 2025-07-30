@@ -83,7 +83,8 @@ plot_cells3D_df <- function(df,
                                      yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
                                                   showline = TRUE, linecolor = 'black', linewidth = 2),
                                      zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  showline = TRUE, linecolor = 'black', linewidth = 2)))
+                                                  showline = TRUE, linecolor = 'black', linewidth = 2),
+                                     aspectmode = aspectmode))
   
   
   return(fig)
@@ -198,9 +199,27 @@ plot_cells3D <- function(spe,
 setwd("/home/dle/R/data3D/merfish_squidpy")
 merfish_squidpy_df <- read.csv("merfish_squidpy_df.csv")
 merfish_squidpy_cell_type_color_mapping <- read.csv("merfish_squidpy_cell_type_color_mapping.csv")
+merfish_squidpy_cell_type_color_mapping$Color <- c(
+  "#33135b",
+  "#73ec81",
+  "#9437a8",
+  "#b8db50",
+  "#0062c5",
+  "#f77e3b",
+  "#48bbff",
+  "#bb0036",
+  "#4deeac",
+  "#770026",
+  "#007128",
+  "#d99dff",
+  "#004a07",
+  "#ff8eb3",
+  "#01478c",
+  "#702c00"
+)
 merfish_squidpy_df$Cell.X.Position <- merfish_squidpy_df$Cell.X.Position * 1.8 + 1000
 merfish_squidpy_df$Cell.Y.Position <- merfish_squidpy_df$Cell.Y.Position * 1.8 + 1000
-merfish_squidpy_df$Cell.Z.Position <- (as.integer(merfish_squidpy_df$Cell.Z.Position) + 29) / 100 + 1000
+merfish_squidpy_df$Cell.Z.Position <- ((as.integer(merfish_squidpy_df$Cell.Z.Position) + 29) / 100) + 1000
 plot_cells3D_df(merfish_squidpy_df,
                 merfish_squidpy_cell_type_color_mapping$Cell_Type,
                 merfish_squidpy_cell_type_color_mapping$Color,
@@ -209,6 +228,9 @@ plot_cells3D_df(merfish_squidpy_df,
 
 # spaSim-3D
 mouse_hypothalamus_md <- spe_metadata_background_template("random")
+mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
+mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
+mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
 mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
 mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
 mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
@@ -237,46 +259,68 @@ mouse_hypothalamus_md$cluster_1$end_loc <- c(100, 50, 47)
 mouse_hypothalamus_md$cluster_2$cluster_cell_types <- "Ependymal"
 mouse_hypothalamus_md$cluster_2$cluster_cell_proportions <- 1
 mouse_hypothalamus_md$cluster_2$radius <- 3
-mouse_hypothalamus_md$cluster_2$start_loc <- c(10, 50, 41)
-mouse_hypothalamus_md$cluster_2$end_loc <- c(90, 50, 41)
+mouse_hypothalamus_md$cluster_2$start_loc <- c(10, 50, 44)
+mouse_hypothalamus_md$cluster_2$end_loc <- c(90, 50, 44)
 
 mouse_hypothalamus_md$cluster_3$cluster_cell_types <- "Ependymal"
 mouse_hypothalamus_md$cluster_3$cluster_cell_proportions <- 1
 mouse_hypothalamus_md$cluster_3$radius <- 3
-mouse_hypothalamus_md$cluster_3$start_loc <- c(10, 50, 35)
-mouse_hypothalamus_md$cluster_3$end_loc <- c(90, 50, 35)
+mouse_hypothalamus_md$cluster_3$start_loc <- c(10, 50, 41)
+mouse_hypothalamus_md$cluster_3$end_loc <- c(90, 50, 41)
 
-
-mouse_hypothalamus_md$cluster_4$cluster_cell_types <- "Endothelial"
+mouse_hypothalamus_md$cluster_4$cluster_cell_types <- "Ependymal"
 mouse_hypothalamus_md$cluster_4$cluster_cell_proportions <- 1
-mouse_hypothalamus_md$cluster_4$n_edges <- 30
-mouse_hypothalamus_md$cluster_4$width <- 6
-mouse_hypothalamus_md$cluster_4$centre_loc <- c(80, 50, 0)
-mouse_hypothalamus_md$cluster_4$radius <- 40
+mouse_hypothalamus_md$cluster_4$radius <- 3
+mouse_hypothalamus_md$cluster_4$start_loc <- c(10, 50, 38)
+mouse_hypothalamus_md$cluster_4$end_loc <- c(100, 50, 38)
 
-mouse_hypothalamus_md$cluster_5$cluster_cell_types <- 
+mouse_hypothalamus_md$cluster_5$cluster_cell_types <- "Ependymal"
+mouse_hypothalamus_md$cluster_5$cluster_cell_proportions <- 1
+mouse_hypothalamus_md$cluster_5$radius <- 3
+mouse_hypothalamus_md$cluster_5$start_loc <- c(10, 50, 35)
+mouse_hypothalamus_md$cluster_5$end_loc <- c(90, 50, 35)
+
+mouse_hypothalamus_md$cluster_6$cluster_cell_types <- "Ependymal"
+mouse_hypothalamus_md$cluster_6$cluster_cell_proportions <- 1
+mouse_hypothalamus_md$cluster_6$radius <- 3
+mouse_hypothalamus_md$cluster_6$start_loc <- c(10, 50, 32)
+mouse_hypothalamus_md$cluster_6$end_loc <- c(90, 50, 32)
+
+
+mouse_hypothalamus_md$cluster_7$cluster_cell_types <- "Endothelial"
+mouse_hypothalamus_md$cluster_7$cluster_cell_proportions <- 1
+mouse_hypothalamus_md$cluster_7$n_edges <- 30
+mouse_hypothalamus_md$cluster_7$width <- 6
+mouse_hypothalamus_md$cluster_7$centre_loc <- c(80, 50, 0)
+mouse_hypothalamus_md$cluster_7$radius <- 40
+
+mouse_hypothalamus_md$cluster_8$cluster_cell_types <- 
   c("Ambiguous", "Astrocyte", "Endothelial", 
     "Ependymal", "Excitatory", "Inhibitory")
-mouse_hypothalamus_md$cluster_5$cluster_cell_proportions <-
+mouse_hypothalamus_md$cluster_8$cluster_cell_proportions <-
   c(0.125, 0, 0,
     0, 0.75, 0.125)
-mouse_hypothalamus_md$cluster_5$x_radius <- 20
-mouse_hypothalamus_md$cluster_5$y_radius <- 30
-mouse_hypothalamus_md$cluster_5$z_radius <- 20
-mouse_hypothalamus_md$cluster_5$centre_loc <- c(0, 50, 40)
-mouse_hypothalamus_md$cluster_5$x_y_rotation <- 0
-mouse_hypothalamus_md$cluster_5$x_z_rotation <- 0
-mouse_hypothalamus_md$cluster_5$y_z_rotation <- 0
+mouse_hypothalamus_md$cluster_8$x_radius <- 20
+mouse_hypothalamus_md$cluster_8$y_radius <- 30
+mouse_hypothalamus_md$cluster_8$z_radius <- 20
+mouse_hypothalamus_md$cluster_8$centre_loc <- c(0, 50, 40)
+mouse_hypothalamus_md$cluster_8$x_y_rotation <- 0
+mouse_hypothalamus_md$cluster_8$x_z_rotation <- 0
+mouse_hypothalamus_md$cluster_8$y_z_rotation <- 0
 
 mouse_hypothalamus_spe <- simulate_spe_metadata3D(mouse_hypothalamus_md)
 spatialCoords(mouse_hypothalamus_spe) <- spatialCoords(mouse_hypothalamus_spe) + 1000
+
+mouse_hypothalamus_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping
+mouse_hypothalamus_cell_type_color_mapping$Cell_Type[
+  mouse_hypothalamus_cell_type_color_mapping$Cell_Type == "Endothelial 2"
+] <- "Endothelial"
+
 plot_cells3D(mouse_hypothalamus_spe, 
              plot_cell_types = 
-               c("Ambiguous", "Astrocyte", "Endothelial", 
-                 "Ependymal", "Excitatory", "Inhibitory"),
+               mouse_hypothalamus_cell_type_color_mapping$Cell_Type,
              plot_colours = 
-               c("#1f77b4", "#ff7f0e", "#d62729",
-                 "#8c564b", "#e377c2", "#b5bd61"))
+               mouse_hypothalamus_cell_type_color_mapping$Color)
 
 
 
@@ -292,7 +336,18 @@ plot_cells3D_df(E16_18h_df, aspectmode = "data",
                 plot_cell_types = 
                   c("salivary gland", "epidermis", "CNS", "carcass", "fat body",
                     "muscle", "trachea", "midgut", "hemolymph", "foregut"),
-                plot_colours = viridis::turbo(10))
+                plot_colours = c(
+                  "#33135b",
+                  "#73ec81",
+                  "#9437a8",
+                  "#b8db50",
+                  "#0062c5",
+                  "#f77e3b",
+                  "#48bbff",
+                  "#bb0036",
+                  "#4deeac",
+                  "#770026"
+                ))
 
 # spasim_3D
 egg_md <- spe_metadata_background_template("ordered")
@@ -309,7 +364,7 @@ egg_md$background$n_cells <- 40000
 egg_md$background$length <- 100
 egg_md$background$width <- 70
 egg_md$background$height <- 40
-egg_md$background$jitter_proportion <- 0
+egg_md$background$jitter_proportion <- 0.1
 egg_md$background$cell_types <- 
   c("salivary gland", "epidermis", "CNS", "carcass", "fat body",
     "muscle", "trachea", "midgut", "hemolymph", "foregut",
@@ -392,7 +447,19 @@ plot_cells3D(egg_spe,
              plot_cell_types = 
                c("salivary gland", "epidermis", "CNS", "carcass", "fat body",
                  "muscle", "trachea", "midgut", "hemolymph", "foregut"),
-             plot_colours = viridis::turbo(10))s
+             plot_colours = c(
+               "#33135b",
+               "#73ec81",
+               "#9437a8",
+               "#b8db50",
+               "#0062c5",
+               "#f77e3b",
+               "#48bbff",
+               "#bb0036",
+               "#4deeac",
+               "#770026"
+             ))
+
 
 
 ### 3. Mouse embryo (E11.5h) ----
@@ -408,7 +475,20 @@ plot_cells3D_df(mouse_E11.5_embryo[sample(nrow(mouse_E11.5_embryo), 100000), ],
                 aspectmode = "data",
                 feature_colname = "Cell.Type",
                 plot_cell_types = cells,
-                plot_colours = brewer.pal(12, "Paired"))
+                plot_colours = c(
+                  "#33135b",
+                  "#73ec81",
+                  "#9437a8",
+                  "#b8db50",
+                  "#0062c5",
+                  "#f77e3b",
+                  "#48bbff",
+                  "#bb0036",
+                  "#4deeac",
+                  "#770026",
+                  "#007128",
+                  "#d99dff"
+                ))
 
 
 # SpaSim-3D
@@ -425,7 +505,7 @@ mouse_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_md)
 mouse_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_md)
 
 
-mouse_md$background$n_cells <- 40000
+mouse_md$background$n_cells <- 100000
 mouse_md$background$length <- 100
 mouse_md$background$width <- 100
 mouse_md$background$height <- 50
@@ -512,8 +592,20 @@ spatialCoords(mouse_spe) <- spatialCoords(mouse_spe) + 1000
 plot_cells3D(mouse_spe,
              feature_colname = "Cell.Type",
              plot_cell_types = cells,
-             plot_colours = brewer.pal(12, "Paired"))
-
+             plot_colours = c(
+               "#33135b",
+               "#73ec81",
+               "#9437a8",
+               "#b8db50",
+               "#0062c5",
+               "#f77e3b",
+               "#48bbff",
+               "#bb0036",
+               "#4deeac",
+               "#770026",
+               "#007128",
+               "#d99dff"
+             ))
 
 
 

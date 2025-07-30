@@ -37,7 +37,7 @@ trace_markers <- add_trace(
   x = ~x, 
   y = ~y, 
   z = ~z,
-  marker = list(size = 10, color = ifelse(cell_types == "A", "red", "blue"))
+  marker = list(size = 10, color = ifelse(cell_types == "A", "#98823c", "#9a5ea1"))
 )
 
 # Adjust
@@ -93,7 +93,7 @@ trace_markers <- add_trace(
   x = ~x, 
   y = ~y, 
   z = ~z,
-  marker = list(size = 10, color = ifelse(cell_types == "A", "red", "blue"))
+  marker = list(size = 10, color = ifelse(cell_types == "A", "#98823c", "#9a5ea1"))
 )
 
 # Add circles
@@ -250,7 +250,7 @@ cluster_metadata$cluster_2$radius <- 150
 cluster_metadata$cluster_2$centre_loc <- c(300, 200, 300)
 
 spe_cluster <- simulate_spe_metadata3D(cluster_metadata)
-plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('orange', 'skyblue'))
+plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#7f63b8', '#ac9c3d'))
 
 # 2.2. Grid ----
 plot_cells_with_grid3D <- function(spe,
@@ -367,13 +367,13 @@ plot_cells_with_grid3D <- function(spe,
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = 'green', width = 3)
+    line = list(color = '#56ae6c', width = 3)
   )
   
   return(fig)
 }
 
-plot_cells_with_grid3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('orange', 'skyblue'))
+plot_cells_with_grid3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#7f63b8', '#ac9c3d'))
 
 # 2.3. Spatial heterogenity metric ----
 # Alter plot_grid_metrics_continuous3D function

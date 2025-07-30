@@ -118,7 +118,10 @@ background_metadata$background$cell_proportions <- c(0.3, 0.1, 0.6)
 
 mixed_background_spe <- simulate_spe_metadata3D(background_metadata, plot_image = F)
 spatialCoords(mixed_background_spe) <- spatialCoords(mixed_background_spe) + 1000
-plot_cells3D(mixed_background_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#bb7438', '#7f64b9', 'lightgray'))
+plot_cells3D(mixed_background_spe, 
+             plot_cell_types = c('A', 'B', 'O'), 
+             plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
+
 
 
 # 2. Clusters ----
@@ -157,7 +160,9 @@ clusters_metadata$cluster_3$centre_loc <- c(100, 0, 100)
 
 clusters_spe <- simulate_spe_metadata3D(clusters_metadata, plot_image = F)
 spatialCoords(clusters_spe) <- spatialCoords(clusters_spe) + 1000
-plot_cells3D(clusters_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#bb7438', '#7f64b9', 'lightgray'))
+plot_cells3D(clusters_spe, 
+             plot_cell_types = c('A', 'B', 'O'), 
+             plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
 
 
 # 3. Ringed clusters ----
@@ -203,7 +208,9 @@ ringed_metadata$cluster_3$x_z_rotation <- 30
 
 ringed_spe <- simulate_spe_metadata3D(ringed_metadata, plot_image = F)
 spatialCoords(ringed_spe) <- spatialCoords(ringed_spe) + 1000
-plot_cells3D(ringed_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#bb7438', '#7f64b9', 'lightgray'))
+plot_cells3D(ringed_spe, 
+             plot_cell_types = c('A', 'B', 'O'), 
+             plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
 
 # 4. Vessels ----
 background_metadata <- spe_metadata_background_template("random")
@@ -253,7 +260,9 @@ vessels_metadata$cluster_5$end_loc <- c(0, 50, 60)
 
 vessels_spe <- simulate_spe_metadata3D(vessels_metadata, plot_image = F)
 spatialCoords(vessels_spe) <- spatialCoords(vessels_spe) + 1000
-plot_cells3D(vessels_spe, plot_cell_types = c('C', 'O'), plot_colours = c('#b94b75', 'lightgray'))
+plot_cells3D(vessels_spe, 
+             plot_cell_types = c('C', 'O'), 
+             plot_colours = c('#bb0036', 'lightgray'))
 
 # 5. Networks ----
 background_metadata <- spe_metadata_background_template("random")
@@ -339,7 +348,7 @@ final_spe <- simulate_spe_metadata3D(combination_metadata, plot_image = F)
 spatialCoords(final_spe) <- spatialCoords(final_spe) + 1000
 plot_cells3D(final_spe, 
              plot_cell_types = c('A', 'B', 'C', 'D', 'O'), 
-             plot_colours = c('#bb7438', '#7f64b9', '#b94b75', '#72ac5c', 'lightgray'))
+             plot_colours = c('#f77e3b', '#48bbff', '#bb0036', '#007128', 'lightgray'))
 
 
 # Apply clustering algorithms to combination simulation
