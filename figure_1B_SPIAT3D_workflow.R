@@ -37,7 +37,7 @@ trace_markers <- add_trace(
   x = ~x, 
   y = ~y, 
   z = ~z,
-  marker = list(size = 10, color = ifelse(cell_types == "A", "#98823c", "#9a5ea1"))
+  marker = list(size = 10, color = ifelse(cell_types == "A", "#bb0036", "#48bbff"))
 )
 
 # Adjust
@@ -62,7 +62,7 @@ cell_types <- c('A', 'A', 'B', 'B', 'B')
 
 # Define pairs of points to connect
 # Connect point 1 to 2, 1 to 3, 1 to 4, 2 to 4 and 2 to 5
-pairs <- list(c(1, 2, 'tomato'), c(1, 3, 'skyblue'), c(1, 4, 'skyblue'), c(2, 4, 'skyblue'), c(2, 5, 'skyblue'))  
+pairs <- list(c(1, 2, '#770026'), c(1, 3, '#0062c5'), c(1, 4, '#0062c5'), c(2, 4, '#0062c5'), c(2, 5, '#0062c5'))  
 
 # Create coordinate vectors with NA between segments
 x_lines <- y_lines <- z_lines <- color_lines <- c()
@@ -93,7 +93,7 @@ trace_markers <- add_trace(
   x = ~x, 
   y = ~y, 
   z = ~z,
-  marker = list(size = 10, color = ifelse(cell_types == "A", "#98823c", "#9a5ea1"))
+  marker = list(size = 10, color = ifelse(cell_types == "A", "#bb0036", "#48bbff"))
 )
 
 # Add circles
@@ -250,12 +250,13 @@ cluster_metadata$cluster_2$radius <- 150
 cluster_metadata$cluster_2$centre_loc <- c(300, 200, 300)
 
 spe_cluster <- simulate_spe_metadata3D(cluster_metadata)
-plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#7f63b8', '#ac9c3d'))
+plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#f77e3b', '#48bbff'))
 
 # 2.2. Grid ----
 plot_cells_with_grid3D <- function(spe,
                                    plot_cell_types = NULL,
                                    plot_colours = NULL,
+                                   grid_color,
                                    feature_colname = "Cell.Type") {
   
   # Check input parameters
@@ -367,13 +368,13 @@ plot_cells_with_grid3D <- function(spe,
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = '#56ae6c', width = 3)
+    line = list(color = grid_color, width = 3)
   )
   
   return(fig)
 }
 
-plot_cells_with_grid3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#7f63b8', '#ac9c3d'))
+plot_cells_with_grid3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#f77e3b', '#48bbff'), grid_color = "#007128")
 
 # 2.3. Spatial heterogenity metric ----
 # Alter plot_grid_metrics_continuous3D function
@@ -549,15 +550,16 @@ cluster_metadata$cluster_2$n_edges <- 20
 cluster_metadata$cluster_2$width <- 50
 
 spe_cluster <- simulate_spe_metadata3D(cluster_metadata)
-plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('orange', 'skyblue'))
+plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#f77e3b', '#48bbff'))
 
 # 3.2. Clustering algorithm ----
 spe_ah <- alpha_hull_clustering3D(spe_cluster, 'A', 28, 100)
 
 # Adjust plot_alpha_hull_cluster3D function to change colors
-plot_alpha_hull_clusters3D <- function(spe_with_alpha_hull, 
+plot_alpha_hull_clusters_updated3D <- function(spe_with_alpha_hull, 
                                        plot_cell_types = NULL,
                                        plot_colours = NULL,
+                                       alpha_hull_colours,
                                        feature_colname = "Cell.Type") {
   
   # Check input parameters
@@ -629,7 +631,6 @@ plot_alpha_hull_clusters3D <- function(spe_with_alpha_hull,
   
   vertices <- spe_with_alpha_hull@metadata$alpha_hull$vertices
   faces <- data.frame(spe_with_alpha_hull@metadata$alpha_hull$faces)
-  alpha_hull_colours <- c("red", "green")
 
   ## Add alpha hulls to fig, one by one  
   for (i in seq(n_alpha_hulls)) {
@@ -657,4 +658,27 @@ plot_alpha_hull_clusters3D <- function(spe_with_alpha_hull,
   return(fig)
 }
 
-plot_alpha_hull_clusters3D(spe_ah, plot_cell_types = c('A', 'B'), plot_colours = c('orange', 'skyblue'))
+plot_alpha_hull_clusters_updated3D(spe_ah, 
+                                   plot_cell_types = c('A', 'B'), 
+                                   plot_colours = c('#f77e3b', '#48bbff'), 
+                                   alpha_hull_colours = c("#d99dff", "#4deeac"))
+
+
+c(
+  "#33135b",
+  "#73ec81",
+  "#9437a8",
+  "#b8db50",
+  "#0062c5",
+  "#f77e3b",
+  "#48bbff",
+  "#bb0036",
+  "#4deeac",
+  "#770026",
+  "#007128",
+  "#d99dff",
+  "#004a07",
+  "#ff8eb3",
+  "#01478c",
+  "#702c00"
+)
