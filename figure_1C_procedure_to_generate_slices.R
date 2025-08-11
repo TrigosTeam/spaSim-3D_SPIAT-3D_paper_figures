@@ -99,8 +99,8 @@ cluster_metadata$background$length <- 500
 cluster_metadata$background$width <- 500
 cluster_metadata$background$height <- 500
 cluster_metadata$background$minimum_distance_between_cells <- 10
-cluster_metadata$background$cell_types <- c('A', 'B', 'O')
-cluster_metadata$background$cell_proportions <- c(0.02, 0, 0.98)
+cluster_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
+cluster_metadata$background$cell_proportions <- c(0.02, 0, 0.08, 0.9)
 
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
 cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.5, 0.5)
@@ -113,7 +113,7 @@ cluster_metadata$cluster_1$y_z_rotation <- 0
 cluster_metadata$cluster_1$centre_loc <- c(250, 250, 250)
 
 spe_cluster <- simulate_spe_metadata3D(cluster_metadata)
-plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#f77e3b', '#48bbff'))
+plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
 
 ### 2. Add slices to simulation ------------------------
 plot_cells3D_with_slices <- function(spe,
@@ -184,8 +184,8 @@ plot_cells3D_with_slices <- function(spe,
 slice_positions_temp <- list(c(335, 345), c(290, 300), c(245, 255))
 
 plot_cells3D_with_slices(spe_cluster, 
-                         plot_cell_types = c('A', 'B'), 
-                         plot_colours = c('#f77e3b', '#48bbff'),
+                         plot_cell_types = c('A', 'B', 'O'), 
+                         plot_colours = c('#f77e3b', '#48bbff', 'lightgray'),
                          slice_positions = slice_positions_temp,
                          slice_colors = c("#b8db50",
                                           "#73ec81",
@@ -224,9 +224,25 @@ plot_cells2D <- function(spe_slices,
   for (spe_slice in spe_slices) {
     
     df_slice <- data.frame(spatialCoords(spe_slice), "Cell.Type" = spe_slice[[feature_colname]])
+    df_slice$Cell.Type[df_slice$Cell.Type == "fakeO"] <- "O"
+    
+    df_slice$Cell.Type <- factor(df_slice$Cell.Type, c('A', 'B', 'O'))
     
     fig <- ggplot(df_slice, aes(x = Cell.X.Position, y = Cell.Y.Position, color = Cell.Type)) +
-      geom_point()
+      geom_point(size = 2.5) +
+      scale_color_manual(values = c("A" = "#f77e3b", "B" = "#48bbff", "O" = 'gray')) +
+      theme_bw() +
+      theme(
+        axis.title.x = element_blank(),     # Remove x-axis title
+        axis.title.y = element_blank(),     # Remove y-axis title
+        axis.text.x = element_blank(),      # Remove x-axis tick labels
+        axis.text.y = element_blank(),      # Remove y-axis tick labels
+        axis.ticks.x = element_blank(),     # Remove x-axis ticks
+        axis.ticks.y = element_blank(),     # Remove y-axis ticks
+        legend.position = "none",           # Remove legend
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank()   # Remove minor grid lines
+      )
     
     methods::show(fig)
   }
@@ -241,4 +257,41 @@ plot_cells2D(spe_slices_temp,
              plot_cell_types = NULL,
              plot_colours = NULL,
              feature_colname = "Cell.Type")
+
+
+### 4. Compare 3D and 2D analysis ----
+
+df_slice1 <- data.frame(x = runif(200))
+df_slice1$y <- (df_slice1$x + rnorm(200, 0, 0.1))^(1/3) + 0.2
+df_slice1$slice <- '1'
+
+df_slice2 <- data.frame(x = runif(200))
+df_slice2$y <- (df_slice2$x + rnorm(200, 0, 0.1))^(1/2)
+df_slice2$slice <- '2'
+
+df_slice3 <- data.frame(x = runif(200))
+df_slice3$y <- df_slice3$x + rnorm(200, 0, 0.1)
+df_slice3$slice <- '3'
+
+df_combined <- rbind(df_slice1, df_slice2, df_slice3)
+
+ggplot(df_combined, aes(x = x, y = y, color = slice)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black", linewidth = 1.5) +
+  theme_bw() +
+  labs(x = "3D metric value", y = "2D metric value") +
+  theme(
+    axis.text.x = element_blank(),      # Remove x-axis tick labels
+    axis.text.y = element_blank(),      # Remove y-axis tick labels
+    axis.ticks.x = element_blank(),     # Remove x-axis ticks
+    axis.ticks.y = element_blank(),     # Remove y-axis ticks
+    panel.grid.major = element_blank(),  # Remove major grid lines
+    panel.grid.minor = element_blank()   # Remove minor grid lines
+  ) +
+  scale_color_manual(values = c("1" = "#b8db50", "2" = "#73ec81", "3" = "#9437a8"))
+  
+
+
+
+
 
