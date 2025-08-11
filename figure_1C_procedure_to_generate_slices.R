@@ -277,7 +277,7 @@ df_combined <- rbind(df_slice1, df_slice2, df_slice3)
 
 ggplot(df_combined, aes(x = x, y = y, color = slice)) +
   geom_point() +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black", linewidth = 1.5) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "#bb0036", linewidth = 1.5) +
   theme_bw() +
   labs(x = "3D metric value", y = "2D metric value") +
   theme(
@@ -290,8 +290,4 @@ ggplot(df_combined, aes(x = x, y = y, color = slice)) +
   ) +
   scale_color_manual(values = c("1" = "#b8db50", "2" = "#73ec81", "3" = "#9437a8"))
   
-
-
-
-
 
