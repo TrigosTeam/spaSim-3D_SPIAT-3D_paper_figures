@@ -80,12 +80,15 @@ plot_cells3D <- function(spe,
                  marker = list(size = 2))
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, 
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500)),
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
+                                                  color = 'black', linewidth = 4),
                                      yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500)),
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
+                                                  color = 'black', linewidth = 4),
                                      zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500)),
-                                     aspectmode = "cube"))
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 250),
+                                                  color = 'black', linewidth = 4),
+                                     aspectmode = "data"))
   
   return(fig)
 }
@@ -97,20 +100,20 @@ cluster_metadata <- spe_metadata_cluster_template("regular", "ellipsoid", bg_met
 cluster_metadata$background$n_cells <- 50000
 cluster_metadata$background$length <- 500
 cluster_metadata$background$width <- 500
-cluster_metadata$background$height <- 500
+cluster_metadata$background$height <- 250
 cluster_metadata$background$minimum_distance_between_cells <- 10
 cluster_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
 cluster_metadata$background$cell_proportions <- c(0.02, 0, 0.08, 0.9)
 
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
 cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.5, 0.5)
-cluster_metadata$cluster_1$x_radius <- 150
-cluster_metadata$cluster_1$x_radius <- 150
-cluster_metadata$cluster_1$x_radius <- 200
-cluster_metadata$cluster_1$x_y_rotation <- -30
-cluster_metadata$cluster_1$x_z_rotation <- -30
-cluster_metadata$cluster_1$y_z_rotation <- 0
-cluster_metadata$cluster_1$centre_loc <- c(250, 250, 250)
+cluster_metadata$cluster_1$x_radius <- 100
+cluster_metadata$cluster_1$y_radius <- 175
+cluster_metadata$cluster_1$z_radius <- 100
+cluster_metadata$cluster_1$x_y_rotation <- 30
+cluster_metadata$cluster_1$x_z_rotation <- 0
+cluster_metadata$cluster_1$y_z_rotation <- 20
+cluster_metadata$cluster_1$centre_loc <- c(250, 250, 125)
 
 spe_cluster <- simulate_spe_metadata3D(cluster_metadata)
 plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
@@ -144,12 +147,15 @@ plot_cells3D_with_slices <- function(spe,
     )
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, 
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500)),
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
+                                                  color = 'black', linewidth = 4),
                                      yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500)),
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
+                                                  color = 'black', linewidth = 4),
                                      zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500)),
-                                     aspectmode = "cube"))
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 250),
+                                                  color = 'black', linewidth = 4),
+                                     aspectmode = "data"))
   
   index <- 1
   for (slice_position in slice_positions) {
@@ -181,7 +187,7 @@ plot_cells3D_with_slices <- function(spe,
   methods::show(fig)
 }
 
-slice_positions_temp <- list(c(335, 345), c(290, 300), c(245, 255))
+slice_positions_temp <- list(c(190, 200), c(155, 165), c(120, 130))
 
 plot_cells3D_with_slices(spe_cluster, 
                          plot_cell_types = c('A', 'B', 'O'), 
@@ -289,5 +295,5 @@ ggplot(df_combined, aes(x = x, y = y, color = slice)) +
     panel.grid.minor = element_blank()   # Remove minor grid lines
   ) +
   scale_color_manual(values = c("1" = "#b8db50", "2" = "#73ec81", "3" = "#9437a8"))
-  
+
 
