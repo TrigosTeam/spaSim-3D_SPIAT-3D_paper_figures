@@ -2,8 +2,8 @@
 ### 1. Cell colocalisation metrics plots ----
 
 # 1.1. First plot - cells with black lines connecting the cells ----
-x          <- c(400, 350, 100, 300, 150)
-y          <- c(100, 350, 200, 150, 350)
+x          <- c(150, 350, 100, 300, 150)
+y          <- c(400, 350, 200, 150, 350)
 z          <- c(050, 100, 500, 400, 350)
 cell_types <- c('B', 'A', 'B', 'A', 'A')
 
