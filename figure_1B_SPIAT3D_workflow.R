@@ -235,12 +235,8 @@ bg_metadata$background$cell_proportions <- 1
 cluster_metadata <- spe_metadata_cluster_template("regular", "ellipsoid", bg_metadata)
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
 cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.2, 0.8)
-cluster_metadata$cluster_1$x_radius <- 150
-cluster_metadata$cluster_1$x_radius <- 150
-cluster_metadata$cluster_1$x_radius <- 200
-cluster_metadata$cluster_1$x_y_rotation <- -30
-cluster_metadata$cluster_1$x_z_rotation <- -30
-cluster_metadata$cluster_1$y_z_rotation <- 0
+cluster_metadata$cluster_1$radii <- c(140, 140, 225)
+cluster_metadata$cluster_1$axes_rotation <- c(-45, 45, 0)
 cluster_metadata$cluster_1$centre_loc <- c(250, 250, 250)
 
 cluster_metadata <- spe_metadata_cluster_template("regular", "sphere", cluster_metadata)
@@ -531,13 +527,9 @@ cluster_metadata$background$cell_proportions <- c(0.01, 0.01, 0.98)
 
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
 cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.8, 0.2)
-cluster_metadata$cluster_1$x_radius <- 150
-cluster_metadata$cluster_1$x_radius <- 150
-cluster_metadata$cluster_1$x_radius <- 200
-cluster_metadata$cluster_1$x_y_rotation <- 0
-cluster_metadata$cluster_1$x_z_rotation <- 30
-cluster_metadata$cluster_1$y_z_rotation <- -45
-cluster_metadata$cluster_1$centre_loc <- c(400, 125, 125)
+cluster_metadata$cluster_1$radii <- c(100, 100, 180)
+cluster_metadata$cluster_1$axes_rotation <- c(-0, 80, -20)
+cluster_metadata$cluster_1$centre_loc <- c(200, 350, 125)
 cluster_metadata$cluster_1$ring_cell_types <- c('A', 'B')
 cluster_metadata$cluster_1$ring_cell_proportions <- c(0, 1)
 cluster_metadata$cluster_1$ring_width <- 25
@@ -664,21 +656,3 @@ plot_alpha_hull_clusters_updated3D(spe_ah,
                                    alpha_hull_colours = c("#d99dff", "#4deeac"))
 
 
-c(
-  "#33135b",
-  "#73ec81",
-  "#9437a8",
-  "#b8db50",
-  "#0062c5",
-  "#f77e3b",
-  "#48bbff",
-  "#bb0036",
-  "#4deeac",
-  "#770026",
-  "#007128",
-  "#d99dff",
-  "#004a07",
-  "#ff8eb3",
-  "#01478c",
-  "#702c00"
-)
