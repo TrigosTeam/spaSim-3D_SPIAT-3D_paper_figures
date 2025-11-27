@@ -183,15 +183,15 @@ plot_cells3D_with_slices <- function(spe,
   methods::show(fig)
 }
 
-slice_positions_temp <- list(c(190, 200), c(155, 165), c(120, 130))
+slice_positions_temp <- list(c(120, 130), c(85, 95), c(50, 60))
 
 plot_cells3D_with_slices(spe_cluster, 
                          plot_cell_types = c('A', 'B', 'O'), 
                          plot_colours = c('#f77e3b', '#48bbff', 'lightgray'),
                          slice_positions = slice_positions_temp,
-                         slice_colors = c("#b8db50",
+                         slice_colors = c("#9437a8",
                                           "#007128",
-                                          "#9437a8"))
+                                          "#b8db50"))
 
 
 
@@ -251,7 +251,7 @@ plot_cells2D <- function(spe_slices,
 }
 
 
-slice_positions_temp <- list(c(335, 345), c(290, 300), c(245, 255))
+slice_positions_temp <- list(c(120, 130), c(85, 95), c(50, 60))
 
 spe_slices_temp <- get_spes_for_slices(spe_cluster, slice_positions_temp)
 
@@ -264,16 +264,17 @@ plot_cells2D(spe_slices_temp,
 ### 4. Compare 3D and 2D analysis ----
 
 df_slice1 <- data.frame(x = runif(200))
-df_slice1$y <- (df_slice1$x + rnorm(200, 0, 0.1))^(1/3) + 0.2
+df_slice1$y <- df_slice1$x + rnorm(200, 0, 0.1)
 df_slice1$slice <- '1'
 
 df_slice2 <- data.frame(x = runif(200))
-df_slice2$y <- (df_slice2$x + rnorm(200, 0, 0.1))^(1/2)
+df_slice2$y <- (df_slice2$x + rnorm(200, 0, 0.1))^(2)
 df_slice2$slice <- '2'
 
 df_slice3 <- data.frame(x = runif(200))
-df_slice3$y <- df_slice3$x + rnorm(200, 0, 0.1)
+df_slice3$y <- (df_slice3$x + rnorm(200, 0, 0.1))^(3) - 0.2
 df_slice3$slice <- '3'
+
 
 df_combined <- rbind(df_slice1, df_slice2, df_slice3)
 
@@ -290,6 +291,6 @@ ggplot(df_combined, aes(x = x, y = y, color = slice)) +
     panel.grid.major = element_blank(),  # Remove major grid lines
     panel.grid.minor = element_blank()   # Remove minor grid lines
   ) +
-  scale_color_manual(values = c("1" = "#b8db50", "2" = "#007128", "3" = "#9437a8"))
+  scale_color_manual(values = c("1" = "#9437a8", "2" = "#007128", "3" = "#b8db50"))
 
 
