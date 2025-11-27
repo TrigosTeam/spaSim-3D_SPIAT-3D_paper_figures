@@ -140,11 +140,9 @@ clusters_metadata$background$cell_proportions <- c(0, 0, 0.25, 0.75)
 
 clusters_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
 clusters_metadata$cluster_1$cluster_cell_proportions <- c(0.6, 0.4)
-clusters_metadata$cluster_1$x_radius <- 25
-clusters_metadata$cluster_1$y_radius <- 25
-clusters_metadata$cluster_1$z_radius <- 50
 clusters_metadata$cluster_1$centre_loc <- c(50, 50, 50)
-clusters_metadata$cluster_1$x_z_rotation <- 45
+clusters_metadata$cluster_1$radii <- c(25, 25, 50)
+clusters_metadata$cluster_1$axes_rotation <- c(0, 45, 0)
 
 
 clusters_metadata$cluster_2$cluster_cell_types <- c('A', 'B')
@@ -181,11 +179,9 @@ ringed_metadata$background$cell_proportions <- c(0, 0, 0.25, 0.75)
 
 ringed_metadata$cluster_1$cluster_cell_types <- 'A'
 ringed_metadata$cluster_1$cluster_cell_proportions <- 1
-ringed_metadata$cluster_1$x_radius <- 25
-ringed_metadata$cluster_1$y_radius <- 25
-ringed_metadata$cluster_1$z_radius <- 40
+ringed_metadata$cluster_1$radii <- c(25, 25, 50)
+ringed_metadata$cluster_1$axes_rotation <- c(0, 30, 0)
 ringed_metadata$cluster_1$centre_loc <- c(50, 50, 35)
-ringed_metadata$cluster_1$x_z_rotation <- 30
 ringed_metadata$cluster_1$ring_cell_types <- 'B'
 ringed_metadata$cluster_1$ring_cell_proportions <- 1
 ringed_metadata$cluster_1$ring_width <- 7
@@ -200,11 +196,9 @@ ringed_metadata$cluster_2$ring_width <- 7
 
 ringed_metadata$cluster_3$cluster_cell_types <- 'A'
 ringed_metadata$cluster_3$cluster_cell_proportions <- 1
-ringed_metadata$cluster_3$x_radius <- 25
-ringed_metadata$cluster_3$y_radius <- 25
-ringed_metadata$cluster_3$z_radius <- 40
+ringed_metadata$cluster_3$radii <- c(25, 25, 40)
+ringed_metadata$cluster_3$axes_rotation <- c(0, 30, 0)
 ringed_metadata$cluster_3$centre_loc <- c(50, 50, 35)
-ringed_metadata$cluster_3$x_z_rotation <- 30
 
 ringed_spe <- simulate_spe_metadata3D(ringed_metadata, plot_image = F)
 spatialCoords(ringed_spe) <- spatialCoords(ringed_spe) + 1000
@@ -322,15 +316,12 @@ combination_metadata$cluster_3$end_loc <- c(0, 100, 50)
 
 combination_metadata$cluster_4$cluster_cell_types <- 'A'
 combination_metadata$cluster_4$cluster_cell_proportions <- 1
-combination_metadata$cluster_4$x_radius <- 30
-combination_metadata$cluster_4$y_radius <- 30
-combination_metadata$cluster_4$z_radius <- 40
+combination_metadata$cluster_4$radii <- c(30, 30, 40)
+combination_metadata$cluster_4$axes_rotation <- c(0, 30, 0)
 combination_metadata$cluster_4$centre_loc <- c(80, 20, 35)
-combination_metadata$cluster_4$x_z_rotation <- 30
 combination_metadata$cluster_4$ring_cell_types <- 'B'
 combination_metadata$cluster_4$ring_cell_proportions <- 1
 combination_metadata$cluster_4$ring_width <- 7
-
 
 combination_metadata$cluster_5$cluster_cell_types <- c('A', 'D')
 combination_metadata$cluster_5$cluster_cell_proportions <- c(0.6, 0.4)

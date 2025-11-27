@@ -107,15 +107,11 @@ cluster_metadata$background$cell_proportions <- c(0.02, 0, 0.08, 0.9)
 
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
 cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.5, 0.5)
-cluster_metadata$cluster_1$x_radius <- 100
-cluster_metadata$cluster_1$y_radius <- 175
-cluster_metadata$cluster_1$z_radius <- 100
-cluster_metadata$cluster_1$x_y_rotation <- 30
-cluster_metadata$cluster_1$x_z_rotation <- 0
-cluster_metadata$cluster_1$y_z_rotation <- 20
+cluster_metadata$cluster_1$radii <- c(100, 175, 100)
+cluster_metadata$cluster_1$axes_rotation <- c(30, 0, 20)
 cluster_metadata$cluster_1$centre_loc <- c(250, 250, 125)
 
-spe_cluster <- simulate_spe_metadata3D(cluster_metadata)
+spe_cluster <- simulate_spe_metadata3D(cluster_metadata, plot_image = F)
 plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
 
 ### 2. Add slices to simulation ------------------------

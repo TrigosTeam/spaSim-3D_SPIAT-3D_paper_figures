@@ -300,13 +300,10 @@ mouse_hypothalamus_md$cluster_8$cluster_cell_types <-
 mouse_hypothalamus_md$cluster_8$cluster_cell_proportions <-
   c(0.125, 0, 0,
     0, 0.75, 0.125)
-mouse_hypothalamus_md$cluster_8$x_radius <- 20
-mouse_hypothalamus_md$cluster_8$y_radius <- 30
-mouse_hypothalamus_md$cluster_8$z_radius <- 20
+
+mouse_hypothalamus_md$cluster_8$radii <- c(20, 30, 20)
 mouse_hypothalamus_md$cluster_8$centre_loc <- c(0, 50, 40)
-mouse_hypothalamus_md$cluster_8$x_y_rotation <- 0
-mouse_hypothalamus_md$cluster_8$x_z_rotation <- 0
-mouse_hypothalamus_md$cluster_8$y_z_rotation <- 0
+mouse_hypothalamus_md$cluster_8$axes_rotation <- c(0, 0, 0)
 
 mouse_hypothalamus_spe <- simulate_spe_metadata3D(mouse_hypothalamus_md)
 spatialCoords(mouse_hypothalamus_spe) <- spatialCoords(mouse_hypothalamus_spe) + 1000
@@ -376,13 +373,9 @@ egg_md$background$cell_proportions <-
 
 egg_md$cluster_1$cluster_cell_types <- "midgut"
 egg_md$cluster_1$cluster_cell_proportions <- 1
-egg_md$cluster_1$x_radius <- 34
-egg_md$cluster_1$y_radius <- 14
-egg_md$cluster_1$z_radius <- 8
 egg_md$cluster_1$centre_loc <- c(50, 50, 25)
-egg_md$cluster_1$x_y_rotation <- 0
-egg_md$cluster_1$x_z_rotation <- 0
-egg_md$cluster_1$y_z_rotation <- 0
+egg_md$cluster_1$radii <- c(34, 14, 8)
+egg_md$cluster_1$axes_rotation <- c(0, 0, 0)
 egg_md$cluster_1$inner_ring_cell_types <- "fat body"
 egg_md$cluster_1$inner_ring_cell_proportions <- 1
 egg_md$cluster_1$inner_ring_width <- 4
@@ -407,33 +400,21 @@ egg_md$cluster_4$centre_loc <- c(70, 50, 40)
 
 egg_md$cluster_5$cluster_cell_types <- "carcass"
 egg_md$cluster_5$cluster_cell_proportions <- 1
-egg_md$cluster_5$x_radius <- 32
-egg_md$cluster_5$y_radius <- 5
-egg_md$cluster_5$z_radius <- 8
 egg_md$cluster_5$centre_loc <- c(50, 65, 25)
-egg_md$cluster_5$x_y_rotation <- 0
-egg_md$cluster_5$x_z_rotation <- 0
-egg_md$cluster_5$y_z_rotation <- 0
+egg_md$cluster_5$radii <- c(32, 5, 8)
+egg_md$cluster_5$axes_rotation <- c(0, 0, 0)
 
 egg_md$cluster_6$cluster_cell_types <- "carcass"
 egg_md$cluster_6$cluster_cell_proportions <- 1
-egg_md$cluster_6$x_radius <- 32
-egg_md$cluster_6$y_radius <- 5
-egg_md$cluster_6$z_radius <- 8
 egg_md$cluster_6$centre_loc <- c(50, 35, 25)
-egg_md$cluster_6$x_y_rotation <- 0
-egg_md$cluster_6$x_z_rotation <- 0
-egg_md$cluster_6$y_z_rotation <- 0
+egg_md$cluster_6$radii <- c(32, 5, 8)
+egg_md$cluster_6$axes_rotation <- c(0, 0, 0)
 
 egg_md$cluster_7$cluster_cell_types <- c("trachea")
 egg_md$cluster_7$cluster_cell_proportions <- c(1)
-egg_md$cluster_7$x_radius <- 5
-egg_md$cluster_7$y_radius <- 12
-egg_md$cluster_7$z_radius <- 6
 egg_md$cluster_7$centre_loc <- c(75, 60, 32)
-egg_md$cluster_7$x_y_rotation <- 45
-egg_md$cluster_7$x_z_rotation <- 0
-egg_md$cluster_7$y_z_rotation <- 0
+egg_md$cluster_7$radii <- c(5, 12, 6)
+egg_md$cluster_7$axes_rotation <- c(45, 0, 0)
 
 egg_md$cluster_8$cluster_cell_types <- "foregut"
 egg_md$cluster_8$cluster_cell_proportions <- 1
@@ -520,23 +501,15 @@ mouse_md$cluster_1$centre_loc <- c(25, 25, 25)
 
 mouse_md$cluster_2$cluster_cell_types <- c("Sclerotome", "Fibroblasts", "Glutamatergic neurons", "Lateral plate and intermediate mesoderm")
 mouse_md$cluster_2$cluster_cell_proportions <- c(0.4, 0.3, 0.2, 0.1)
-mouse_md$cluster_2$x_radius <- 45
-mouse_md$cluster_2$y_radius <- 20
-mouse_md$cluster_2$z_radius <- 20
 mouse_md$cluster_2$centre_loc <- c(60, 45, 25)
-mouse_md$cluster_2$x_y_rotation <- -10
-mouse_md$cluster_2$x_z_rotation <- 0
-mouse_md$cluster_2$y_z_rotation <- 0
+mouse_md$cluster_2$radii <- c(45, 20, 20)
+mouse_md$cluster_2$axes_rotation <- c(-10, 0, 0)
 
 mouse_md$cluster_3$cluster_cell_types <- c("Sclerotome", "Fibroblasts", "Glutamatergic neurons", "Lateral plate and intermediate mesoderm")
 mouse_md$cluster_3$cluster_cell_proportions <- c(0.6, 0.20, 0.15, 0.05)
-mouse_md$cluster_3$x_radius <- 25
-mouse_md$cluster_3$y_radius <- 15
-mouse_md$cluster_3$z_radius <- 20
 mouse_md$cluster_3$centre_loc <- c(80, 20, 25)
-mouse_md$cluster_3$x_y_rotation <- 38
-mouse_md$cluster_3$x_z_rotation <- 0
-mouse_md$cluster_3$y_z_rotation <- 0
+mouse_md$cluster_3$radii <- c(25, 15, 20)
+mouse_md$cluster_3$axes_rotation <- c(38, 0, 0)
 
 mouse_md$cluster_4$cluster_cell_types <- c("Limb progenitors and lateral plate mesenchyme")
 mouse_md$cluster_4$cluster_cell_proportions <- c(1)
@@ -550,23 +523,15 @@ mouse_md$cluster_5$centre_loc <- c(75, 15, 40)
 
 mouse_md$cluster_6$cluster_cell_types <- c("Facial mesenchyme")
 mouse_md$cluster_6$cluster_cell_proportions <- c(1)
-mouse_md$cluster_6$x_radius <- 10
-mouse_md$cluster_6$y_radius <- 18
-mouse_md$cluster_6$z_radius <- 15
 mouse_md$cluster_6$centre_loc <- c(35, 25, 30)
-mouse_md$cluster_6$x_y_rotation <- 0
-mouse_md$cluster_6$x_z_rotation <- 0
-mouse_md$cluster_6$y_z_rotation <- 0
+mouse_md$cluster_6$radii <- c(10, 18, 15)
+mouse_md$cluster_6$axes_rotation <- c(0, 0, 0)
 
 mouse_md$cluster_7$cluster_cell_types <- c("Telencephalon neuroectoderm")
 mouse_md$cluster_7$cluster_cell_proportions <- c(1)
-mouse_md$cluster_7$x_radius <- 18
-mouse_md$cluster_7$y_radius <- 10
-mouse_md$cluster_7$z_radius <- 15
 mouse_md$cluster_7$centre_loc <- c(25, 10, 25)
-mouse_md$cluster_7$x_y_rotation <- -60
-mouse_md$cluster_7$x_z_rotation <- 0
-mouse_md$cluster_7$y_z_rotation <- 0
+mouse_md$cluster_7$radii <- c(18, 10, 15)
+mouse_md$cluster_7$axes_rotation <- c(-60, 0, 0)
 
 mouse_md$cluster_8$cluster_cell_types <- c("Spinal cord neuroectoderm")
 mouse_md$cluster_8$cluster_cell_proportions <- c(1)
