@@ -124,7 +124,7 @@ plot_cells3D_with_slices <- function(spe,
   
   spatialCoords(spe) <- spatialCoords(spe) + 1000
   
-  df <- data.frame(spatialCoords(spe_cluster), "Cell.Type" = spe_cluster[[feature_colname]])
+  df <- data.frame(spatialCoords(spe), "Cell.Type" = spe[[feature_colname]])
   
   ## Factor for feature column
   df[, "Cell.Type"] <- factor(df[, "Cell.Type"], levels = plot_cell_types)
