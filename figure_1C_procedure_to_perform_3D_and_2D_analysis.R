@@ -143,21 +143,23 @@ plot_cells3D_with_slices <- function(spe,
     )
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F, 
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(1000, 1500),
                                                   color = 'black', linewidth = 4),
                                      yaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(1000, 1500),
                                                   color = 'black', linewidth = 4),
                                      zaxis = list(title = '', showgrid = F, showaxeslabels = F, showticklabels = F,
-                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 250),
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(1000, 1250),
                                                   color = 'black', linewidth = 4),
                                      aspectmode = "data"))
   
   index <- 1
   for (slice_position in slice_positions) {
     
-    vertices <- data.frame(x = c(0, 0, 500, 500, 0, 0, 500, 500),
-                           y = c(0, 500, 0, 500, 0, 500, 0, 500),
+    slice_position <- slice_position + 1000
+    
+    vertices <- data.frame(x = c(1000, 1000, 1500, 1500, 1000, 1000, 1500, 1500),
+                           y = c(1000, 1500, 1000, 1500, 1000, 1500, 1000, 1500),
                            z = rep(slice_position, each = 4))
     
     faces_temp <- data.frame(i = c(1, 4, 5, 8, 1, 6, 1, 1, 4, 4, 2, 2),
