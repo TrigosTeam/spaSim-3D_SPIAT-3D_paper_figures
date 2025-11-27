@@ -194,7 +194,7 @@ plot_cells3D_with_slices(spe_cluster,
                          plot_colours = c('#f77e3b', '#48bbff', 'lightgray'),
                          slice_positions = slice_positions_temp,
                          slice_colors = c("#b8db50",
-                                          "#73ec81",
+                                          "#007128",
                                           "#9437a8"))
 
 
@@ -294,6 +294,6 @@ ggplot(df_combined, aes(x = x, y = y, color = slice)) +
     panel.grid.major = element_blank(),  # Remove major grid lines
     panel.grid.minor = element_blank()   # Remove minor grid lines
   ) +
-  scale_color_manual(values = c("1" = "#b8db50", "2" = "#73ec81", "3" = "#9437a8"))
+  scale_color_manual(values = c("1" = "#b8db50", "2" = "#007128", "3" = "#9437a8"))
 
 
