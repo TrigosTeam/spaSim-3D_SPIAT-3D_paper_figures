@@ -346,9 +346,6 @@ plot_cells_with_grid3D <- function(spe,
   y <- c(rep(c(rep(seq(0, 500, 100), each = 2), rep(c(0, 500), 6)), 6), rep(seq(0, 500, 100), each = 24), rep(c(rep(c(0, 500), 6), rep(seq(0, 500, 100), each = 2)), 6))
   z <- c(rep(seq(0, 500, 100), each = 24), rep(c(rep(c(0, 500), 6), rep(seq(0, 500, 100), each = 2)), 6), rep(c(rep(seq(0, 500, 100), each = 2), rep(c(0, 500), 6)), 6))
   
-  # Define pairs of points to connect
-  pairs <- list(c(1, 2))  # Connect point 1 to 2
-  
   # Create coordinate vectors with NA between segments
   x_lines <- y_lines <- z_lines <- c()
   for (i in seq(1, length(x), 2)) {
