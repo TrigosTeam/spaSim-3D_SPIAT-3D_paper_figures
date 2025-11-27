@@ -513,6 +513,330 @@ spe <- simulate_spe_metadata3D(cluster_metadata,
 
 
 ### Ellipsoid transformations ----
+# 1. unit sphere
+plot_unit_sphere <- function(sphere_color = "#0062c5",
+                             sphere_axis_color = "#bb0036") {
+  
+  
+  # Get random coords for a unit sphere
+  x <- runif(20000, -1, 1)
+  y <- runif(20000, -1, 1)
+  z <- runif(20000, -1, 1)
+  
+  coords_to_keep <- x^2 + y^2 + z^2 < 1
+  x <- x[coords_to_keep]
+  y <- y[coords_to_keep]
+  z <- z[coords_to_keep]
+  
+  # Get axis lines
+  x_line_coords <- c(0, 4, 0, 0, 0, 0)
+  y_line_coords <- c(0, 0, 0, 4, 0, 0)
+  z_line_coords <- c(0, 0, 0, 0, 0, 4)
+  
+  # Create coordinate vectors with NA between segments
+  x_lines <- y_lines <- z_lines <- c()
+  for (i in seq(1, length(x), 2)) {
+    x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
+    y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
+    z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = sphere_color, size = 1, opacity = 0.1))
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_lines,
+    y = ~y_lines,
+    z = ~z_lines,
+    line = list(color = sphere_axis_color, width = 5)
+  )
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+plot_unit_sphere()
+
+
+# 2. dilated unit sphere
+plot_dilated_sphere <- function(sphere_color = "#0062c5",
+                                sphere_axis_color = "#bb0036") {
+  
+  # Get random coords for a unit sphere
+  x <- runif(20000, -1, 1)
+  y <- runif(20000, -1, 1)
+  z <- runif(20000, -1, 1)
+  
+  coords_to_keep <- x^2 + y^2 + z^2 < 1
+  x <- x[coords_to_keep]
+  y <- y[coords_to_keep]
+  z <- z[coords_to_keep]
+  
+  # Dilate
+  x <- x * 1.5
+  y <- y * 1.5
+  z <- z * 3
+  
+  # Get axis lines
+  x_line_coords <- c(0, 4, 0, 0, 0, 0)
+  y_line_coords <- c(0, 0, 0, 4, 0, 0)
+  z_line_coords <- c(0, 0, 0, 0, 0, 4)
+  
+  # Create coordinate vectors with NA between segments
+  x_lines <- y_lines <- z_lines <- c()
+  for (i in seq(1, length(x), 2)) {
+    x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
+    y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
+    z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = sphere_color, size = 1, opacity = 0.3))
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_lines,
+    y = ~y_lines,
+    z = ~z_lines,
+    line = list(color = sphere_axis_color, width = 5)
+  )
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+plot_dilated_sphere()
+
+# 3. dilated and rotated unit sphere
+plot_dilated_and_rotated_sphere <- function(sphere_color = "#0062c5",
+                                            sphere_axis_color = "#bb0036") {
+  
+  
+  # Get random coords for a unit sphere
+  x <- runif(20000, -1, 1)
+  y <- runif(20000, -1, 1)
+  z <- runif(20000, -1, 1)
+  
+  coords_to_keep <- x^2 + y^2 + z^2 < 1
+  x <- x[coords_to_keep]
+  y <- y[coords_to_keep]
+  z <- z[coords_to_keep]
+  
+  # Dilate
+  x <- x * 1.5
+  y <- y * 1.5
+  z <- z * 3
+  
+  # Rotate
+  theta <- -pi/8 # rotation in x-axis
+  alpha <- 0 # rotation in y-axis
+  beta  <- 0 # rotation in z-axis
+  
+  # Get rotation matrices for rotation in the y-z plane (T2), x-z plane (T3) and x-y plane (T4)
+  T1 <- matrix(data = c(1, 0, 0,
+                        0, cos(theta), -sin(theta),
+                        0, sin(theta), cos(theta)), nrow = 3, ncol = 3, byrow = TRUE)
+  T2 <- matrix(data = c(cos(alpha), 0, -sin(alpha),
+                        0, 1, 0,
+                        sin(alpha), 0, cos(alpha)), nrow = 3, ncol = 3, byrow = TRUE)
+  T3 <- matrix(data = c(cos(beta), -sin(beta), 0,
+                        sin(beta), cos(beta), 0,
+                        0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
+  
+  coords <- t(as.matrix(data.frame(x = x, y = y, z = z)))
+  coords <- solve(T1) %*% solve(T2) %*% solve(T3) %*% (coords)
+  
+  x <- coords[1, ]
+  y <- coords[2, ]
+  z <- coords[3, ]
+  
+  # Get axis lines
+  x_line_coords <- c(0, 4, 0, 0, 0, 0)
+  y_line_coords <- c(0, 0, 0, 4, 0, 0)
+  z_line_coords <- c(0, 0, 0, 0, 0, 4)
+  
+  line_coords <- t(as.matrix(data.frame(x = x_line_coords, y = y_line_coords, z = z_line_coords)))
+  line_coords <- solve(T1) %*% solve(T2) %*% solve(T3) %*% (line_coords)
+  
+  x_line_coords <- line_coords[1, ]
+  y_line_coords <- line_coords[2, ]
+  z_line_coords <- line_coords[3, ]
+  
+  # Create coordinate vectors with NA between segments
+  x_lines <- y_lines <- z_lines <- c()
+  for (i in seq(1, length(x), 2)) {
+    x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
+    y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
+    z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = sphere_color, size = 1, opacity = 0.1))
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_lines,
+    y = ~y_lines,
+    z = ~z_lines,
+    line = list(color = sphere_axis_color, width = 5)
+  )
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+plot_dilated_and_rotated_sphere()
+
+# 4. dilated, rotated and translated unit sphere
+plot_dilated_and_rotated_and_translated_sphere <- function(sphere_color = "#0062c5",
+                                                           sphere_axis_color = "#bb0036") {
+  
+  
+  # Get random coords for a unit sphere
+  x <- runif(20000, -1, 1)
+  y <- runif(20000, -1, 1)
+  z <- runif(20000, -1, 1)
+  
+  coords_to_keep <- x^2 + y^2 + z^2 < 1
+  x <- x[coords_to_keep]
+  y <- y[coords_to_keep]
+  z <- z[coords_to_keep]
+  
+  # Dilate
+  x <- x * 1.5
+  y <- y * 1.5
+  z <- z * 3
+  
+  # Rotate
+  theta <- -pi/8 # rotation in x-axis
+  alpha <- 0 # rotation in y-axis
+  beta  <- 0 # rotation in z-axis
+  
+  # Get rotation matrices for rotation in the y-z plane (T2), x-z plane (T3) and x-y plane (T4)
+  T1 <- matrix(data = c(1, 0, 0,
+                        0, cos(theta), -sin(theta),
+                        0, sin(theta), cos(theta)), nrow = 3, ncol = 3, byrow = TRUE)
+  T2 <- matrix(data = c(cos(alpha), 0, -sin(alpha),
+                        0, 1, 0,
+                        sin(alpha), 0, cos(alpha)), nrow = 3, ncol = 3, byrow = TRUE)
+  T3 <- matrix(data = c(cos(beta), -sin(beta), 0,
+                        sin(beta), cos(beta), 0,
+                        0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
+  
+  T4 <- c(-2, 2, 2)
+  
+  coords <- t(as.matrix(data.frame(x = x, y = y, z = z)))
+  coords <- solve(T1) %*% solve(T2) %*% solve(T3) %*% (coords - T4)
+  
+  x <- coords[1, ]
+  y <- coords[2, ]
+  z <- coords[3, ]
+  
+  # Get axis lines
+  x_line_coords <- c(0, 4, 0, 0, 0, 0)
+  y_line_coords <- c(0, 0, 0, 4, 0, 0)
+  z_line_coords <- c(0, 0, 0, 0, 0, 4)
+  
+  line_coords <- t(as.matrix(data.frame(x = x_line_coords, y = y_line_coords, z = z_line_coords)))
+  line_coords <- solve(T1) %*% solve(T2) %*% solve(T3) %*% (line_coords - T4)
+  
+  x_line_coords <- line_coords[1, ]
+  y_line_coords <- line_coords[2, ]
+  z_line_coords <- line_coords[3, ]
+  
+  # Create coordinate vectors with NA between segments
+  x_lines <- y_lines <- z_lines <- c()
+  for (i in seq(1, length(x), 2)) {
+    x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
+    y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
+    z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = sphere_color, size = 1, opacity = 0.1))
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_lines,
+    y = ~y_lines,
+    z = ~z_lines,
+    line = list(color = sphere_axis_color, width = 5)
+  )
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+plot_dilated_and_rotated_and_translated_sphere()
 
 ### Ellipsoid ----
 plot_cells3D <- function(spe,
@@ -632,6 +956,139 @@ spe <- simulate_spe_metadata3D(cluster_metadata,
 
 
 ### Cylinder justification ----
+plot_cylinder_justification <- function(cylinder_color = "#0062c5",
+                                        cylinder_axis_color = "#bb0036") {
+  
+  
+  # Get random coords for a cylinder
+  p <- 1.5
+  theta <- runif(20000, 0, 2 * pi)
+  
+  x <- p * sin(theta)
+  y <- p * cos(theta)
+  z <- runif(20000, -3, 3)
+  
+  # Get axis lines
+  x_line_coords <- c(0, 0)
+  y_line_coords <- c(0, 0)
+  z_line_coords <- c(-4, 4)
+  
+  # Create coordinate vectors with NA between segments
+  x_lines <- y_lines <- z_lines <- c()
+  for (i in seq(1, length(x), 2)) {
+    x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
+    y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
+    z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = cylinder_color, size = 1, opacity = 0.1))
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_lines,
+    y = ~y_lines,
+    z = ~z_lines,
+    line = list(color = cylinder_axis_color, width = 5)
+  )
+  
+  # Add extra points
+  x_extra <- c(0, 1.5, 4)
+  y_extra <- c(1, -1.5, 0)
+  z_extra <- c(0, 4, -1)
+  
+  fig <- add_trace(fig,
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x_extra,
+                   y = ~y_extra,
+                   z = ~z_extra,
+                   marker = list(size = 10, color = c("#f77e3b", "#bb0036", "#9437a8")))
+  
+  
+  x_extra <- c(0, 1.5, 4)
+  y_extra <- c(1, -1.5, 0)
+  z_extra <- c(0, 4, -1)
+  
+  
+  # Add extra lines
+  x_extra_line_coords <- c(0, 0, 1.5, 1.5, 0, 4)
+  y_extra_line_coords <- c(0, 1, -1.5, -1.5, 0, 0)
+  z_extra_line_coords <- c(0, 0, 3, 4, -1, -1)
+  
+  # Create coordinate vectors with NA between segments
+  x_extra_lines <- y_extra_lines <- z_extra_lines <- c()
+  for (i in seq(1, length(x), 2)) {
+    x_extra_lines <- c(x_extra_lines, x_extra_line_coords[i], x_extra_line_coords[i + 1], NA)
+    y_extra_lines <- c(y_extra_lines, y_extra_line_coords[i], y_extra_line_coords[i + 1], NA)
+    z_extra_lines <- c(z_extra_lines, z_extra_line_coords[i], z_extra_line_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_extra_lines,
+    y = ~y_extra_lines,
+    z = ~z_extra_lines,
+    line = list(color = "black", width = 5)
+  )
+  
+  # Get planes
+  index <- 1
+  slice_positions <- c(-3, 3)
+  for (slice_position in slice_positions) {
+    
+    slice_position <- slice_position
+    
+    vertices <- data.frame(x = rep(rep(c(-2, 2), each = 2), 2),
+                           y = rep(c(-2, 2), 4),
+                           z = rep(slice_position, each = 4))
+    
+    faces_temp <- data.frame(i = c(1, 4, 5, 8, 1, 6, 1, 1, 4, 4, 2, 2),
+                             j = c(2, 2, 6, 6, 5, 5, 3, 5, 8, 3, 4, 6),
+                             k = c(3, 3, 7, 7, 2, 2, 7, 7, 7, 7, 8, 8))
+    
+    fig <- fig %>%
+      add_trace(
+        type = 'mesh3d',
+        x = vertices[, 1], 
+        y = vertices[, 2], 
+        z = vertices[, 3],
+        i = faces_temp[, 1] - 1, 
+        j = faces_temp[, 2] - 1, 
+        k = faces_temp[, 3] - 1,
+        opacity = 0.5,
+        facecolor = rep("#007128", nrow(faces_temp))
+      )
+    
+    index <- index + 1
+  }
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+plot_cylinder_justification()
+
+
 
 ### Cylinder ----
 plot_cells3D <- function(spe,
