@@ -359,13 +359,13 @@ plot_cells3D <- function(spe,
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "data"))
   
   return(fig)
@@ -479,13 +479,13 @@ plot_cells3D <- function(spe,
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "data"))
   
   return(fig)
@@ -561,13 +561,13 @@ plot_unit_sphere <- function(sphere_color = "#0062c5",
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "cube"))
   
   return(fig)
@@ -628,13 +628,13 @@ plot_dilated_sphere <- function(sphere_color = "#0062c5",
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "cube"))
   
   return(fig)
@@ -725,13 +725,13 @@ plot_dilated_and_rotated_sphere <- function(sphere_color = "#0062c5",
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "cube"))
   
   return(fig)
@@ -824,13 +824,13 @@ plot_dilated_and_rotated_and_translated_sphere <- function(sphere_color = "#0062
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "cube"))
   
   return(fig)
@@ -921,13 +921,13 @@ plot_cells3D <- function(spe,
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "data"))
   
   return(fig)
@@ -1074,13 +1074,13 @@ plot_cylinder_justification <- function(cylinder_color = "#0062c5",
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "cube"))
   
   return(fig)
@@ -1173,13 +1173,13 @@ plot_cells3D <- function(spe,
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "data"))
   
   return(fig)
@@ -1207,6 +1207,16 @@ spe <- simulate_spe_metadata3D(cluster_metadata,
                                plot_colours = c('lightgray', '#f77e3b', '#48bbff', '#bb0036'))
 
 ### Prim's algorithm ----
+# 1. Points in a sphere
+plot_points_in_a_sphere <- function(sphere_color = "#01478c") {
+  
+}
+
+plot_points_in_a_sphere
+
+# 2. Points all connected with MST
+
+# 3. Points conected via MST only
 
 ### Network ----
 plot_cells3D <- function(spe,
@@ -1291,13 +1301,13 @@ plot_cells3D <- function(spe,
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "data"))
   
   return(fig)
@@ -1407,13 +1417,13 @@ plot_cells3D <- function(spe,
   
   fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
-                                                  color = 'black', linewidth = 4),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
                                      aspectmode = "data"))
   
   return(fig)
