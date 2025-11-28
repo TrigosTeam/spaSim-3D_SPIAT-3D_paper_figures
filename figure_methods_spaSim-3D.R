@@ -1208,15 +1208,319 @@ spe <- simulate_spe_metadata3D(cluster_metadata,
 
 ### Prim's algorithm ----
 # 1. Points in a sphere
-plot_points_in_a_sphere <- function(sphere_color = "#01478c") {
+get_points_in_a_sphere <- function(n, r) {
+  n <- 20
+  r <- 3
+  x <- runif(n, -r, r)
+  y <- runif(n, -r, r)
+  z <- runif(n, -r, r)
+  chosen_points <- x^2 + y^2 + z^2 < r^2
+  x <- x[chosen_points]
+  y <- y[chosen_points]
+  z <- z[chosen_points]
   
+  return(data.frame(x = x, y = y, z = z))
 }
 
-plot_points_in_a_sphere
+plot_points_in_a_sphere <- function(points, 
+                                    sphere_color = "#01478c") {
+  
+  x <- points$x
+  y <- points$y
+  z <- points$z
+  
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = "black", size = 10))
+  
+  # Add sphere
+  x_sphere <- 0
+  y_sphere <- 0
+  z_sphere <- 0
+  
+  fig <- add_trace(fig,
+                   type = "scatter3d",
+                   mode = 'markers',
+                   x = ~x_sphere, 
+                   y = ~y_sphere, 
+                   z = ~z_sphere,
+                   marker = list(size = 120, 
+                                 color = sphere_color, 
+                                 opacity = 0.5,
+                                 line = list(
+                                   color = "black",  # border color
+                                   width = 10         # border thickness
+                                 ))
+  )
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+
+points <- get_points_in_a_sphere(20, 3)
+plot_points_in_a_sphere(points)
 
 # 2. Points all connected with MST
+plot_points_connected_with_MST <- function(points) {
+  
+  x <- points$x
+  y <- points$y
+  z <- points$z
+  
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = "black", size = 10))
+  
+  # add connections
+  v <- 1:length(x)
+  
+  # all permutations of size 2
+  perm <- permutations(n = length(v), r = 2, v = v)
+  
+  x_line_coords <- y_line_coords <- z_line_coords <- c()
+  for (i in seq(nrow(perm))) {
+    x_line_coords <- c(x_line_coords, x[perm[i, ]])
+    y_line_coords <- c(y_line_coords, y[perm[i, ]])
+    z_line_coords <- c(z_line_coords, z[perm[i, ]])
+  }
+
+  # Create coordinate vectors with NA between segments
+  x_lines <- y_lines <- z_lines <- c()
+  for (i in seq(1, length(x_line_coords), 2)) {
+    x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
+    y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
+    z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_lines,
+    y = ~y_lines,
+    z = ~z_lines,
+    line = list(color = "lightgray", width = 6)
+  )
+  
+  
+  # Add MST in different color
+  prims_algorithm <- function(graph) {
+    
+    # Number of vertices is number of points
+    num_vertices <- nrow(graph)
+    
+    # Start with no vertices selected except first
+    selected <- rep(FALSE, num_vertices)
+    selected[1] <- TRUE
+    
+    # Create tree_edge matrix. Currently zero, each row represents the two vertices the edge joins
+    tree_edges <- matrix(0, 
+                         nrow = num_vertices - 1,
+                         ncol = 2)
+    
+    # Iterate until we select enough edges (one less than the number of vertices for a MST)
+    num_edges <- 0
+    while (num_edges < num_vertices - 1) {
+      # Set initial temp values for weight and vertex
+      min_weight <- Inf
+      min_vertex <- -1
+      
+      # Iterate through each currently selected vertex
+      for (i in seq(num_vertices)) {
+        
+        # Found a currently selected vertex
+        if (selected[i] == TRUE) {
+          
+          # Iterate through each unselected vertex and find the nearest one
+          for (j in seq(num_vertices)) {
+            if (!selected[j] && graph[i, j] < min_weight) {
+              min_weight <- graph[i, j]
+              min_vertex <- j
+              curr_vertex <- i
+            }
+          }
+        }
+      }
+      
+      # Current edge connects the min_vertex and curr_vertex
+      tree_edges[num_edges + 1, ] <- c(min_vertex, curr_vertex)
+      selected[min_vertex] <- TRUE
+      num_edges <- num_edges + 1
+    }
+    return(tree_edges)
+  }
+  
+  adj_mat <- -1 * apcluster::negDistMat(points)
+  tree_edges <- prims_algorithm(adj_mat)
+
+  x_MST_coords <- y_MST_coords <- z_MST_coords <- c()
+  for (i in seq(nrow(tree_edges))) {
+    x_MST_coords <- c(x_MST_coords, x[tree_edges[i, ]])
+    y_MST_coords <- c(y_MST_coords, y[tree_edges[i, ]])
+    z_MST_coords <- c(z_MST_coords, z[tree_edges[i, ]])
+  }
+  
+  # Create coordinate vectors with NA between segments
+  x_MST_lines <- y_MST_lines <- z_MST_lines <- c()
+  for (i in seq(1, length(x_MST_coords), 2)) {
+    x_MST_lines <- c(x_MST_lines, x_MST_coords[i], x_MST_coords[i + 1], NA)
+    y_MST_lines <- c(y_MST_lines, y_MST_coords[i], y_MST_coords[i + 1], NA)
+    z_MST_lines <- c(z_MST_lines, z_MST_coords[i], z_MST_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_MST_lines,
+    y = ~y_MST_lines,
+    z = ~z_MST_lines,
+    line = list(color = "#bb0036", width = 6)
+  )
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+# library(gtools)
+plot_points_connected_with_MST(points)
 
 # 3. Points conected via MST only
+plot_points_with_MST_only <- function(points) {
+  
+  x <- points$x
+  y <- points$y
+  z <- points$z
+  
+  fig <- add_trace(plot_ly(),
+                   type = "scatter3d",
+                   mode = "markers",
+                   x = ~x,
+                   y = ~y,
+                   z = ~z,
+                   marker = list(color = "black", size = 10))
+  
+  # Add MST in different color
+  prims_algorithm <- function(graph) {
+    
+    # Number of vertices is number of points
+    num_vertices <- nrow(graph)
+    
+    # Start with no vertices selected except first
+    selected <- rep(FALSE, num_vertices)
+    selected[1] <- TRUE
+    
+    # Create tree_edge matrix. Currently zero, each row represents the two vertices the edge joins
+    tree_edges <- matrix(0, 
+                         nrow = num_vertices - 1,
+                         ncol = 2)
+    
+    # Iterate until we select enough edges (one less than the number of vertices for a MST)
+    num_edges <- 0
+    while (num_edges < num_vertices - 1) {
+      # Set initial temp values for weight and vertex
+      min_weight <- Inf
+      min_vertex <- -1
+      
+      # Iterate through each currently selected vertex
+      for (i in seq(num_vertices)) {
+        
+        # Found a currently selected vertex
+        if (selected[i] == TRUE) {
+          
+          # Iterate through each unselected vertex and find the nearest one
+          for (j in seq(num_vertices)) {
+            if (!selected[j] && graph[i, j] < min_weight) {
+              min_weight <- graph[i, j]
+              min_vertex <- j
+              curr_vertex <- i
+            }
+          }
+        }
+      }
+      
+      # Current edge connects the min_vertex and curr_vertex
+      tree_edges[num_edges + 1, ] <- c(min_vertex, curr_vertex)
+      selected[min_vertex] <- TRUE
+      num_edges <- num_edges + 1
+    }
+    return(tree_edges)
+  }
+  
+  adj_mat <- -1 * apcluster::negDistMat(points)
+  tree_edges <- prims_algorithm(adj_mat)
+  
+  x_MST_coords <- y_MST_coords <- z_MST_coords <- c()
+  for (i in seq(nrow(tree_edges))) {
+    x_MST_coords <- c(x_MST_coords, x[tree_edges[i, ]])
+    y_MST_coords <- c(y_MST_coords, y[tree_edges[i, ]])
+    z_MST_coords <- c(z_MST_coords, z[tree_edges[i, ]])
+  }
+  
+  # Create coordinate vectors with NA between segments
+  x_MST_lines <- y_MST_lines <- z_MST_lines <- c()
+  for (i in seq(1, length(x_MST_coords), 2)) {
+    x_MST_lines <- c(x_MST_lines, x_MST_coords[i], x_MST_coords[i + 1], NA)
+    y_MST_lines <- c(y_MST_lines, y_MST_coords[i], y_MST_coords[i + 1], NA)
+    z_MST_lines <- c(z_MST_lines, z_MST_coords[i], z_MST_coords[i + 1], NA)
+  }
+  
+  fig <- add_trace(
+    fig,
+    type = "scatter3d",
+    mode = "lines",
+    x = ~x_MST_lines,
+    y = ~y_MST_lines,
+    z = ~z_MST_lines,
+    line = list(color = "#bb0036", width = 6)
+  )
+  
+  fig <- fig %>% layout(scene = list(xaxis = list(title = 'x', showgrid = T, showaxeslabels = T, showticklabels = T, 
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     yaxis = list(title = 'y', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
+                                                  titlefont = list(size = 20), tickfont = list(size = 15), range = c(-5, 5),
+                                                  color = 'black', linewidth = 4, gridwidth = 4),
+                                     aspectmode = "cube"))
+  
+  return(fig)
+}
+
+plot_points_with_MST_only(points)
 
 ### Network ----
 plot_cells3D <- function(spe,
