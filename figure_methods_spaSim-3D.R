@@ -535,7 +535,7 @@ plot_unit_sphere <- function(sphere_color = "#0062c5",
   
   # Create coordinate vectors with NA between segments
   x_lines <- y_lines <- z_lines <- c()
-  for (i in seq(1, length(x), 2)) {
+  for (i in seq(1, length(x_line_coords), 2)) {
     x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
     y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
     z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
@@ -602,7 +602,7 @@ plot_dilated_sphere <- function(sphere_color = "#0062c5",
   
   # Create coordinate vectors with NA between segments
   x_lines <- y_lines <- z_lines <- c()
-  for (i in seq(1, length(x), 2)) {
+  for (i in seq(1, length(x_line_coords), 2)) {
     x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
     y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
     z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
@@ -699,7 +699,7 @@ plot_dilated_and_rotated_sphere <- function(sphere_color = "#0062c5",
   
   # Create coordinate vectors with NA between segments
   x_lines <- y_lines <- z_lines <- c()
-  for (i in seq(1, length(x), 2)) {
+  for (i in seq(1, length(x_line_coords), 2)) {
     x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
     y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
     z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
@@ -798,7 +798,7 @@ plot_dilated_and_rotated_and_translated_sphere <- function(sphere_color = "#0062
   
   # Create coordinate vectors with NA between segments
   x_lines <- y_lines <- z_lines <- c()
-  for (i in seq(1, length(x), 2)) {
+  for (i in seq(1, length(x_line_coords), 2)) {
     x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
     y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
     z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
@@ -975,7 +975,7 @@ plot_cylinder_justification <- function(cylinder_color = "#0062c5",
   
   # Create coordinate vectors with NA between segments
   x_lines <- y_lines <- z_lines <- c()
-  for (i in seq(1, length(x), 2)) {
+  for (i in seq(1, length(x_line_coords), 2)) {
     x_lines <- c(x_lines, x_line_coords[i], x_line_coords[i + 1], NA)
     y_lines <- c(y_lines, y_line_coords[i], y_line_coords[i + 1], NA)
     z_lines <- c(z_lines, z_line_coords[i], z_line_coords[i + 1], NA)
@@ -1025,7 +1025,7 @@ plot_cylinder_justification <- function(cylinder_color = "#0062c5",
   
   # Create coordinate vectors with NA between segments
   x_extra_lines <- y_extra_lines <- z_extra_lines <- c()
-  for (i in seq(1, length(x), 2)) {
+  for (i in seq(1, length(x_extra_lines), 2)) {
     x_extra_lines <- c(x_extra_lines, x_extra_line_coords[i], x_extra_line_coords[i + 1], NA)
     y_extra_lines <- c(y_extra_lines, y_extra_line_coords[i], y_extra_line_coords[i + 1], NA)
     z_extra_lines <- c(z_extra_lines, z_extra_line_coords[i], z_extra_line_coords[i + 1], NA)
