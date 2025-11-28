@@ -1025,7 +1025,7 @@ plot_cylinder_justification <- function(cylinder_color = "#0062c5",
   
   # Create coordinate vectors with NA between segments
   x_extra_lines <- y_extra_lines <- z_extra_lines <- c()
-  for (i in seq(1, length(x_extra_lines), 2)) {
+  for (i in seq(1, length(x_extra_line_coords), 2)) {
     x_extra_lines <- c(x_extra_lines, x_extra_line_coords[i], x_extra_line_coords[i + 1], NA)
     y_extra_lines <- c(y_extra_lines, y_extra_line_coords[i], y_extra_line_coords[i + 1], NA)
     z_extra_lines <- c(z_extra_lines, z_extra_line_coords[i], z_extra_line_coords[i + 1], NA)
@@ -1320,7 +1320,7 @@ plot_points_connected_with_MST <- function(points) {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "lightgray", width = 6)
+    line = list(color = "gray", width = 6)
   )
   
   
