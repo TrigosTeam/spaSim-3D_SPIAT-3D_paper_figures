@@ -1,3 +1,15 @@
+### Libraries -----
+library(SpatialExperiment)
+library(dbscan)
+library(alphashape3d)
+library(apcluster)
+library(plotly)
+library(dplyr)
+library(reshape2)
+library(gtools)
+library(cowplot)
+library(Hmisc)
+
 ### Poisson point process ----
 
 # 1. Get empty box with borders
