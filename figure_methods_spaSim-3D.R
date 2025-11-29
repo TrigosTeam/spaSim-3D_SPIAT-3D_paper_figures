@@ -723,7 +723,7 @@ plot_dilated_and_rotated_sphere <- function(sphere_color = "#0062c5",
                    x = ~x,
                    y = ~y,
                    z = ~z,
-                   marker = list(color = sphere_color, size = 1, opacity = 0.1))
+                   marker = list(color = sphere_color, size = 1, opacity = 0.3))
   
   fig <- add_trace(
     fig,
@@ -822,7 +822,7 @@ plot_dilated_and_rotated_and_translated_sphere <- function(sphere_color = "#0062
                    x = ~x,
                    y = ~y,
                    z = ~z,
-                   marker = list(color = sphere_color, size = 1, opacity = 0.1))
+                   marker = list(color = sphere_color, size = 1, opacity = 0.3))
   
   fig <- add_trace(
     fig,
@@ -940,7 +940,7 @@ plot_cells3D <- function(spe,
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
                                                   color = 'black', linewidth = 4, gridwidth = 4),
-                                     aspectmode = "data"))
+                                     aspectmode = "cube"))
   
   return(fig)
 }
@@ -1285,7 +1285,7 @@ plot_points_in_a_sphere <- function(points,
 }
 
 
-points <- get_points_in_a_sphere(20, 3)
+points <- get_points_in_a_sphere(20, 4)
 plot_points_in_a_sphere(points)
 
 # 2. Points all connected with MST
@@ -1624,7 +1624,7 @@ plot_cells3D <- function(spe,
                                      zaxis = list(title = 'z', showgrid = T, showaxeslabels = T, showticklabels = T,
                                                   titlefont = list(size = 20), tickfont = list(size = 15), range = c(0, 500),
                                                   color = 'black', linewidth = 4, gridwidth = 4),
-                                     aspectmode = "data"))
+                                     aspectmode = "cube"))
   
   return(fig)
 }
@@ -1643,7 +1643,7 @@ cluster_metadata$cluster_1$cluster_cell_types <- "B"
 cluster_metadata$cluster_1$cluster_cell_proportions <- 1
 cluster_metadata$cluster_1$centre_loc <- c(250, 250, 250)
 cluster_metadata$cluster_1$radius <- 300
-cluster_metadata$cluster_1$width <- 50
+cluster_metadata$cluster_1$width <- 40
 cluster_metadata$cluster_1$n_edges <- 50
 
 spe <- simulate_spe_metadata3D(cluster_metadata, 
