@@ -24,7 +24,7 @@ plot_pairwise_distance_diagram <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
@@ -83,7 +83,7 @@ plot_minimum_distance_diagram <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
@@ -230,7 +230,7 @@ plot_random_cells_with_spheres_and_edges <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
@@ -310,7 +310,7 @@ plot_high_entropy <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
@@ -384,7 +384,7 @@ plot_low_entropy <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
@@ -465,7 +465,7 @@ plot_mixing_score_diagram <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
@@ -541,7 +541,7 @@ plot_high_cross_K <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
@@ -615,7 +615,7 @@ plot_low_cross_K <- function() {
     x = ~x_lines,
     y = ~y_lines,
     z = ~z_lines,
-    line = list(color = "black", width = 3)
+    line = list(color = "black", width = 5)
   )
   
   # Add markers
