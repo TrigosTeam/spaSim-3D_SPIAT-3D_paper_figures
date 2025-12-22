@@ -185,7 +185,7 @@ plot_cells3D_with_slices <- function(spe,
   methods::show(fig)
 }
 
-slice_positions_temp <- list(c(120, 130), c(85, 95), c(50, 60))
+slice_positions_temp <- list(c(120, 130), c(155, 165), c(190, 200))
 
 plot_cells3D_with_slices(spe_cluster, 
                          plot_cell_types = c('A', 'B', 'O'), 
@@ -253,7 +253,7 @@ plot_cells2D <- function(spe_slices,
 }
 
 
-slice_positions_temp <- list(c(120, 130), c(85, 95), c(50, 60))
+slice_positions_temp <- list(c(120, 130), c(155, 165), c(190, 200))
 
 spe_slices_temp <- get_spes_for_slices(spe_cluster, slice_positions_temp)
 
