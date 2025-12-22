@@ -289,10 +289,6 @@ plot_random_cells_with_spheres_and_edges()
 
 ### Cross K-function ----
 
-### Cross G-function ----
-
-### Co-occurrence ----
-
 ### Gradient-based metrics -----
 
 ### Grid metrics ----
