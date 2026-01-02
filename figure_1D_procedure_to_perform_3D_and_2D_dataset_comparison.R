@@ -106,7 +106,7 @@ cluster_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
 cluster_metadata$background$cell_proportions <- c(0.02, 0, 0.08, 0.9)
 
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
-cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.5, 0.5)
+cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.75, 0.25)
 cluster_metadata$cluster_1$radii <- c(100, 175, 100)
 cluster_metadata$cluster_1$axes_rotation <- c(30, 0, 20)
 cluster_metadata$cluster_1$centre_loc <- c(250, 250, 125)
@@ -117,16 +117,9 @@ plot_cells3D(spe_cluster1, plot_cell_types = c('A', 'B', 'O'), plot_colours = c(
 
 # Second simulation
 cluster_metadata$cluster_1$axes_rotation <- c(30, 0, -20)
-cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.4, 0.6)
+cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.25, 0.75)
 spe_cluster2 <- simulate_spe_metadata3D(cluster_metadata, plot_image = F)
 plot_cells3D(spe_cluster2, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
-
-# Third simulation
-cluster_metadata$cluster_1$axes_rotation <- c(-30, 0, 20)
-cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.6, 0.4)
-cluster_metadata$cluster_1$radii <- c(100, 190, 100)
-spe_cluster3 <- simulate_spe_metadata3D(cluster_metadata, plot_image = F)
-plot_cells3D(spe_cluster3, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
 
 ### 2. Add slices to simulation ------------------------
 plot_cells3D_with_slices <- function(spe,
@@ -199,108 +192,20 @@ plot_cells3D_with_slices <- function(spe,
   methods::show(fig)
 }
 
-slice_positions_temp <- list(c(120, 130), c(85, 95), c(50, 60))
+slice_positions_temp1 <- list(c(120, 130))
+slice_positions_temp2 <- list(c(50, 60))
 
 plot_cells3D_with_slices(spe_cluster1, 
                          plot_cell_types = c('A', 'B', 'O'), 
                          plot_colours = c('#f77e3b', '#48bbff', 'lightgray'),
-                         slice_positions = slice_positions_temp,
-                         slice_colors = c("#9437a8",
-                                          "#007128",
-                                          "#b8db50"))
+                         slice_positions = slice_positions_temp1,
+                         slice_colors = c("#9437a8"))
 
 plot_cells3D_with_slices(spe_cluster2, 
                          plot_cell_types = c('A', 'B', 'O'), 
                          plot_colours = c('#f77e3b', '#48bbff', 'lightgray'),
-                         slice_positions = slice_positions_temp,
-                         slice_colors = c("#9437a8",
-                                          "#007128",
-                                          "#b8db50"))
-
-plot_cells3D_with_slices(spe_cluster3, 
-                         plot_cell_types = c('A', 'B', 'O'), 
-                         plot_colours = c('#f77e3b', '#48bbff', 'lightgray'),
-                         slice_positions = slice_positions_temp,
-                         slice_colors = c("#9437a8",
-                                          "#007128",
-                                          "#b8db50"))
-
-
-
-
-
-
-### 3. Extract slices -----
-# Function to get slices from spe
-get_random_spe_for_slice <- function(spe, slice_positions) {
-  
-  spes_for_slices <- list()
-  
-  number_of_slices <- length(slice_positions)
-  
-  for (i in seq(number_of_slices)) {
-    bottom_z_coord_of_slice <- slice_positions[[i]][1]
-    top_z_coord_of_slice <- slice_positions[[i]][2]
-    z_coords_of_cells_in_spe <- spatialCoords(spe)[ , "Cell.Z.Position"]
-    spe_for_slice <- spe[, bottom_z_coord_of_slice < z_coords_of_cells_in_spe & z_coords_of_cells_in_spe < top_z_coord_of_slice]
-    spatialCoords(spe_for_slice) <- spatialCoords(spe_for_slice)[ , c("Cell.X.Position", "Cell.Y.Position")]
-    
-    spes_for_slices[[i]] <- spe_for_slice
-  }
-  return(sample(spes_for_slices, 1)[[1]])
-}
-
-plot_cells2D <- function(spe_slice,
-                         plot_cell_types = NULL,
-                         plot_colours = NULL,
-                         feature_colname = "Cell.Type") {
-  
-  df_slice <- data.frame(spatialCoords(spe_slice), "Cell.Type" = spe_slice[[feature_colname]])
-  df_slice$Cell.Type[df_slice$Cell.Type == "fakeO"] <- "O"
-  
-  df_slice$Cell.Type <- factor(df_slice$Cell.Type, c('A', 'B', 'O'))
-  
-  fig <- ggplot(df_slice, aes(x = Cell.X.Position, y = Cell.Y.Position, color = Cell.Type)) +
-    geom_point(size = 2.5) +
-    scale_color_manual(values = c("A" = "#f77e3b", "B" = "#48bbff", "O" = 'gray')) +
-    theme_bw() +
-    theme(
-      axis.title.x = element_blank(),     # Remove x-axis title
-      axis.title.y = element_blank(),     # Remove y-axis title
-      axis.text.x = element_blank(),      # Remove x-axis tick labels
-      axis.text.y = element_blank(),      # Remove y-axis tick labels
-      axis.ticks.x = element_blank(),     # Remove x-axis ticks
-      axis.ticks.y = element_blank(),     # Remove y-axis ticks
-      legend.position = "none",           # Remove legend
-      panel.grid.major = element_blank(),  # Remove major grid lines
-      panel.grid.minor = element_blank()   # Remove minor grid lines
-    )
-  
-  methods::show(fig)
-}
-
-
-slice_positions_temp <- list(c(120, 130), c(85, 95), c(50, 60))
-
-spe_slice_temp1 <- get_random_spe_for_slice(spe_cluster1, slice_positions_temp)
-spe_slice_temp2 <- get_random_spe_for_slice(spe_cluster2, slice_positions_temp)
-spe_slice_temp3 <- get_random_spe_for_slice(spe_cluster3, slice_positions_temp)
-
-plot_cells2D(spe_slice_temp1,
-             plot_cell_types = NULL,
-             plot_colours = NULL,
-             feature_colname = "Cell.Type")
-
-plot_cells2D(spe_slice_temp2,
-             plot_cell_types = NULL,
-             plot_colours = NULL,
-             feature_colname = "Cell.Type")
-
-plot_cells2D(spe_slice_temp3,
-             plot_cell_types = NULL,
-             plot_colours = NULL,
-             feature_colname = "Cell.Type")
-
+                         slice_positions = slice_positions_temp2,
+                         slice_colors = c("#b8db50"))
 
 ### 4. Basic p-value plot ----
 plot_df <- data.frame(dimension = c(rep("3D", 200),
