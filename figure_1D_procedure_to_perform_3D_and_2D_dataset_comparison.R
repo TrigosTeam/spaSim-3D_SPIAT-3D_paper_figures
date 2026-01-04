@@ -1,4 +1,4 @@
-### 1. 3 example simulation ----
+### 1. 2 example simulation ----
 plot_cells3D <- function(spe,
                          plot_cell_types = NULL,
                          plot_colours = NULL,
@@ -193,7 +193,7 @@ plot_cells3D_with_slices <- function(spe,
 }
 
 slice_positions_temp1 <- list(c(120, 130))
-slice_positions_temp2 <- list(c(50, 60))
+slice_positions_temp2 <- list(c(190, 200))
 
 plot_cells3D_with_slices(spe_cluster1, 
                          plot_cell_types = c('A', 'B', 'O'), 
