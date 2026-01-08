@@ -269,16 +269,17 @@ background_metadata$background$cell_types <- c('A', 'B', 'O', 'fakeO')
 background_metadata$background$cell_proportions <- c(0, 0, 0.25, 0.75)
 
 network_metadata <- spe_metadata_cluster_template("regular", "network", background_metadata)
-network_metadata$cluster_1$cluster_cell_types <- c('A', 'B', 'D')
-network_metadata$cluster_1$cluster_cell_proportions <- c(0.6, 0.2, 0.2)
+network_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
+network_metadata$cluster_1$cluster_cell_proportions <- c(0.75, 0.25)
 network_metadata$cluster_1$radius <- 75
 network_metadata$cluster_1$centre_loc <- c(50, 50, 50)
 network_metadata$cluster_1$n_edges <- 35
-network_metadata$cluster_1$width <- 12
+network_metadata$cluster_1$width <- 11
   
 network_spe <- simulate_spe_metadata3D(network_metadata, plot_image = F)
 spatialCoords(network_spe) <- spatialCoords(network_spe) + 1000
-plot_cells3D(network_spe, plot_cell_types = c('A', 'B', 'D', 'O'), plot_colours = c('#bb7438', '#7f64b9', '#72ac5c', 'lightgray'))
+plot_cells3D(network_spe, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#48bbff', '#f77e3b', 'lightgray'))
+
 
 # 6. Combination ----
 combination_metadata <- spe_metadata_background_template("random")
