@@ -113,6 +113,20 @@ spe <- simulate_spe_metadata3D(cluster_metadata,
                                plot_colours = c('lightgray', '#f77e3b', '#48bbff'))
 
 
+# Mixed network
+cluster_metadata <- spe_metadata_cluster_template("regular", "network", bg_metadata)
+cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
+cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.5, 0.5)
+cluster_metadata$cluster_1$centre_loc <- c(250, 250, 250)
+cluster_metadata$cluster_1$radius <- 300
+cluster_metadata$cluster_1$width <- 45
+cluster_metadata$cluster_1$n_edges <- 50
+spe <- simulate_spe_metadata3D(cluster_metadata, 
+                               plot_image = T, 
+                               plot_cell_types = c('O', 'A', 'B'), 
+                               plot_colours = c('lightgray', '#f77e3b', '#48bbff'))
+
+
 # Mixed ellipsoid with higher mixing
 cluster_metadata <- spe_metadata_cluster_template("regular", "ellipsoid", bg_metadata)
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
@@ -125,7 +139,7 @@ spe <- simulate_spe_metadata3D(cluster_metadata,
                                plot_cell_types = c('O', 'A', 'B'), 
                                plot_colours = c('lightgray', '#f77e3b', '#48bbff'))
 
-# Mixed network
+# Mixed network with higher mixing
 cluster_metadata <- spe_metadata_cluster_template("regular", "network", bg_metadata)
 cluster_metadata$cluster_1$cluster_cell_types <- c('A', 'B')
 cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.25, 0.75)
