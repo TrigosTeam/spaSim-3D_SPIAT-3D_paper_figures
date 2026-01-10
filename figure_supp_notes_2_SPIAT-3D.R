@@ -1136,7 +1136,7 @@ plot_grid_metrics_continuous3D <- function(grid_metrics, metric_colname) {
   }
   
   ## Color of each dot is related to its entropy
-  pal <- colorRampPalette(terrain.colors(10, rev = TRUE)[2:10])
+  pal <- colorRampPalette(c("white", "#f77e3b", "#b8db50", "#007128"))
   
   ## Add size column and for NA entropy values, make the size small
   grid_metrics$size <- ifelse(is.na(grid_metrics[[metric_colname]]), 0, 10)
@@ -1166,6 +1166,7 @@ plot_grid_metrics_continuous3D <- function(grid_metrics, metric_colname) {
 }
 
 calculate_cell_proportion_grid_metrics3D(spe_cluster, 10, 'A', 'B')
+
 
 # 2D simulation
 df <- data.frame(
@@ -1368,7 +1369,7 @@ plot_grid_metrics_continuous2D <- function(grid_metrics, metric_colname) {
   }
   
   ## Color of each dot is related to its entropy
-  pal <- colorRampPalette(terrain.colors(10, rev = TRUE)[2:10])
+  pal <- colorRampPalette(c("white", "#f77e3b", "#b8db50", "#007128"))
   
   fig <- ggplot(grid_metrics, aes(x_coord, y_coord, fill = proportion)) + 
     geom_tile() + 
