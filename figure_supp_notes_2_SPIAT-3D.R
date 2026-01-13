@@ -881,6 +881,46 @@ spe <- simulate_spe_metadata3D(cluster_metadata,
 # Get cross K-function gradient plot
 cross_K_data <- calculate_cross_K_gradient3D(spe, 'Tumour', 'Immune', seq(10, 250, 10))
 
+
+plot_cross_K_gradient3D <- function(cross_K_gradient_df) {
+  
+  target_cell_types <- colnames(cross_K_gradient_df)[!colnames(cross_K_gradient_df) %in% c("reference", "expected", "radius")]
+  
+  plot_result <- reshape2::melt(cross_K_gradient_df, "radius", c(target_cell_types, "expected"))
+  
+  # Use scientific notation axis labels with big numbers
+  sci_clean_threshold <- function(x) {
+    
+    # x[!(x %in% range(x, na.rm = T))] <- NA
+    
+    sapply(x, function(v) {
+      if (is.na(v)) {
+        return('')
+      }
+      if (abs(v) < 1000) {
+        return(as.character(v))   # keep normal numbers
+      }
+      # scientific notation
+      s <- format(v, scientific = TRUE)   # e.g. "1e+03"
+      s <- gsub("\\+", "", s)             # remove "+"
+      s <- gsub("e0+", "e", s)            # remove leading zeros in exponent
+      s
+    })
+  }
+  
+  
+  fig <- ggplot(plot_result, aes(x = radius, y = value, color = variable)) +
+    geom_line() +
+    labs(title = "Cross K-function gradient", x = "Radius", y = "Cross K-function value") +
+    scale_colour_discrete(name = "") +
+    theme_bw() +
+    scale_x_continuous(labels = sci_clean_threshold) + 
+    scale_y_continuous(labels = sci_clean_threshold)
+  
+  return(fig) 
+}
+
+
 plot_cross_K_gradient3D(cross_K_data)
 
 ### Grid metrics ----
