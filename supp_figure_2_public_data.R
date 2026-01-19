@@ -182,3 +182,72 @@ plot_cells3D_df(colorectal_cancer_subset_df,
                 plot_cell_types = plot_cell_types)
 
 
+
+
+
+
+# Merfish mouse brain cortex dataset
+mouse_cortex_df <- read.csv("~/R/data3D/merfish_mouse_brain/mouse_cortex_100um_df.csv")
+colnames(mouse_cortex_df) <- c("Cell.X.Position", "Cell.Y.Position", "Cell.Z.Position", "Cell.Type")
+
+
+# Move to avoid axis plotting issues
+mouse_cortex_df$Cell.X.Position <- mouse_cortex_df$Cell.X.Position + 10000
+mouse_cortex_df$Cell.Y.Position <- mouse_cortex_df$Cell.Y.Position + 10000
+mouse_cortex_df$Cell.Z.Position <- mouse_cortex_df$Cell.Z.Position + 10000
+
+
+# Get cell types and colors for plotting
+plot_cell_types <- unique(mouse_cortex_df$Cell.Type)
+plot_colours <- c(
+  "#33135b",
+  "#73ec81",
+  "#9437a8",
+  "#b8db50",
+  "#0062c5",
+  "#f77e3b",
+  "#48bbff",
+  "#bb0036",
+  "#4deeac",
+  "#770026",
+  "#007128"
+)
+
+plot_cells3D_df(mouse_cortex_df, 
+                aspectmode = "data", 
+                plot_colours = plot_colours,
+                plot_cell_types = plot_cell_types)
+
+
+
+
+# Merfish mouse hypothalamus dataset
+mouse_hypothalamus_df <- read.csv("~/R/data3D/merfish_mouse_brain/mouse_hypothalamus_200um_df.csv")
+colnames(mouse_hypothalamus_df) <- c("Cell.X.Position", "Cell.Y.Position", "Cell.Z.Position", "Cell.Type")
+
+
+# Move to avoid axis plotting issues
+mouse_hypothalamus_df$Cell.X.Position <- mouse_hypothalamus_df$Cell.X.Position + 10000
+mouse_hypothalamus_df$Cell.Y.Position <- mouse_hypothalamus_df$Cell.Y.Position + 10000
+mouse_hypothalamus_df$Cell.Z.Position <- mouse_hypothalamus_df$Cell.Z.Position + 10000
+
+
+# Get cell types and colors for plotting
+plot_cell_types <- unique(mouse_hypothalamus_df$Cell.Type)
+plot_colours <- c(
+  "#f77e3b",
+  "#48bbff",
+  "#bb0036",
+  "#4deeac",
+  "#770026",
+  "#007128",
+  "#9437a8",
+  "#b8db50",
+  "#0062c5"
+)
+
+plot_cells3D_df(mouse_hypothalamus_df, 
+                aspectmode = "data", 
+                plot_colours = plot_colours,
+                plot_cell_types = plot_cell_types)
+
