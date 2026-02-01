@@ -3,3 +3,5 @@ This repo contains R scripts that reproduce the 'graphic' figures found in the p
   https://doi.org/10.64898/2026.01.21.700966
 
 It also contains the color pallete used for all figures in the paper.
+
+You may need to run the spaSim-3D and SPIAT-3D packages first.
