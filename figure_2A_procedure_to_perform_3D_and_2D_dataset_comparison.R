@@ -1,4 +1,7 @@
-### 1. 2 example simulation ----
+# Figure 2A requires to images of 2 example 3D simulations, 
+# and images of those same simulations with a 'slice' being taken from them.
+
+### 1. 2 example 3D simulations ----
 plot_cells3D <- function(spe,
                          plot_cell_types = NULL,
                          plot_colours = NULL,
@@ -93,7 +96,7 @@ plot_cells3D <- function(spe,
   return(fig)
 }
 
-
+# Set up simulation metadata for both simulations
 bg_metadata <- spe_metadata_background_template("random")
 cluster_metadata <- spe_metadata_cluster_template("regular", "ellipsoid", bg_metadata)
 
@@ -111,17 +114,17 @@ cluster_metadata$cluster_1$radii <- c(100, 175, 100)
 cluster_metadata$cluster_1$axes_rotation <- c(30, 0, 20)
 cluster_metadata$cluster_1$centre_loc <- c(250, 250, 125)
 
-# First simulation
+# First simulation: mixed ellipsoid with more A > B cell type proportion
 spe_cluster1 <- simulate_spe_metadata3D(cluster_metadata, plot_image = F)
 plot_cells3D(spe_cluster1, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
 
-# Second simulation
+# Second simulation: mixed ellipsoid with more B > A cell type proportion and different ellipsoid rotation
 cluster_metadata$cluster_1$axes_rotation <- c(30, 0, -20)
 cluster_metadata$cluster_1$cluster_cell_proportions <- c(0.25, 0.75)
 spe_cluster2 <- simulate_spe_metadata3D(cluster_metadata, plot_image = F)
 plot_cells3D(spe_cluster2, plot_cell_types = c('A', 'B', 'O'), plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
 
-### 2. Add slices to simulation ------------------------
+### 2. Add slices to simulations ------------------------
 plot_cells3D_with_slices <- function(spe,
                                      plot_cell_types = NULL,
                                      plot_colours = NULL,
@@ -129,13 +132,16 @@ plot_cells3D_with_slices <- function(spe,
                                      slice_positions,
                                      slice_colors) {
   
+  # Add 1000 to x, y and z coords to avoid plotting issues with plot_ly
   spatialCoords(spe) <- spatialCoords(spe) + 1000
   
+  # Convert spe to data frame
   df <- data.frame(spatialCoords(spe), "Cell.Type" = spe[[feature_colname]])
   
   ## Factor for feature column
   df[, "Cell.Type"] <- factor(df[, "Cell.Type"], levels = plot_cell_types)
   
+  # Plot cells
   fig <- plot_ly() %>%
     add_trace(
       data = df,
@@ -160,6 +166,7 @@ plot_cells3D_with_slices <- function(spe,
                                                   color = 'black', linewidth = 4),
                                      aspectmode = "data"))
   
+  # Add 'slices' to the plot.
   index <- 1
   for (slice_position in slice_positions) {
     
@@ -192,8 +199,8 @@ plot_cells3D_with_slices <- function(spe,
   methods::show(fig)
 }
 
-slice_positions_temp1 <- list(c(120, 130))
-slice_positions_temp2 <- list(c(190, 200))
+slice_positions_temp1 <- list(c(120, 130)) # Slice position is through the middle of the simulation, for first simulation.
+slice_positions_temp2 <- list(c(190, 200)) # Slice position is through the 'uppermost' part of the simulation, for second simulation.
 
 plot_cells3D_with_slices(spe_cluster1, 
                          plot_cell_types = c('A', 'B', 'O'), 
@@ -207,18 +214,3 @@ plot_cells3D_with_slices(spe_cluster2,
                          slice_positions = slice_positions_temp2,
                          slice_colors = c("#b8db50"))
 
-### 4. Basic p-value plot ----
-plot_df <- data.frame(dimension = c(rep("3D", 200),
-                                    rep("2D", 200)),
-                      p_value = c(rnorm(200, mean = 0.025, sd = 0.01),
-                                  rnorm(200, mean = 0.1, sd = 0.05)))
-
-
-ggplot(plot_df, aes(dimension, p_value)) +
-  geom_boxplot(outlier.shape = NA, fill = "lightgray") +
-  geom_jitter(width = 0.2, color = "#0062c5", alpha = 0.5) +
-  geom_hline(yintercept = (0.05), color = "#bb0036", linetype = "dashed") + # horizontal line at p = 0.05
-  labs(x = "Dimension",
-       y = "p-value") +
-  # ylim(0, 1) +
-  theme_minimal()
