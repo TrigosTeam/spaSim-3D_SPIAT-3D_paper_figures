@@ -334,15 +334,3 @@ spatialCoords(final_spe) <- spatialCoords(final_spe) + 1000
 plot_cells3D(final_spe, 
              plot_cell_types = c('A', 'B', 'C', 'D', 'O'), 
              plot_colours = c('#f77e3b', '#48bbff', '#bb0036', '#007128', 'lightgray'))
-
-
-# Apply clustering algorithms to combination simulation
-# ah_spe <- alpha_hull_clustering3D(final_spe, 'B', 5, 100)
-# ah_spe <- alpha_hull_clustering3D(final_spe, 'C', 5, 100)
-# ah_spe <- alpha_hull_clustering3D(final_spe, c('A', 'D'), 3.3, 200)
-# 
-# gbc_spe <- grid_based_clustering3D(final_spe, 'B', 10, 100)
-# gbc_spe <- grid_based_clustering3D(final_spe, 'C', 10, 100)
-# gbc_spe <- grid_based_clustering3D(final_spe, c('A', 'D'), 10, 100)
-# 
-# plot_alpha_hull_clusters3D(ah_spe)
