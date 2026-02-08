@@ -226,7 +226,7 @@ plot_cells3D_df(merfish_squidpy_df,
                 aspectmode = "data")
 
 
-# spaSim-3D
+# using spaSim-3D
 mouse_hypothalamus_md <- spe_metadata_background_template("random")
 mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
 mouse_hypothalamus_md <- spe_metadata_cluster_template("regular", "cylinder", mouse_hypothalamus_md)
@@ -309,9 +309,7 @@ mouse_hypothalamus_spe <- simulate_spe_metadata3D(mouse_hypothalamus_md)
 spatialCoords(mouse_hypothalamus_spe) <- spatialCoords(mouse_hypothalamus_spe) + 1000
 
 mouse_hypothalamus_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping
-mouse_hypothalamus_cell_type_color_mapping$Cell_Type[
-  mouse_hypothalamus_cell_type_color_mapping$Cell_Type == "Endothelial 2"
-] <- "Endothelial"
+mouse_hypothalamus_cell_type_color_mapping$Cell_Type[mouse_hypothalamus_cell_type_color_mapping$Cell_Type == "Endothelial 2"] <- "Endothelial"
 
 plot_cells3D(mouse_hypothalamus_spe, 
              plot_cell_types = 
@@ -346,7 +344,7 @@ plot_cells3D_df(E16_18h_df, aspectmode = "data",
                   "#770026"
                 ))
 
-# spasim_3D
+# using spasim_3D
 egg_md <- spe_metadata_background_template("ordered")
 egg_md <- spe_metadata_cluster_template("double ring", "ellipsoid", egg_md)
 egg_md <- spe_metadata_cluster_template("regular", "sphere", egg_md)
@@ -472,7 +470,7 @@ plot_cells3D_df(mouse_E11.5_embryo[sample(nrow(mouse_E11.5_embryo), 100000), ],
                 ))
 
 
-# SpaSim-3D
+# using spaSim-3D
 mouse_md <- spe_metadata_background_template("random")
 mouse_md <- spe_metadata_cluster_template("regular", "sphere", mouse_md)
 mouse_md <- spe_metadata_cluster_template("regular", "ellipsoid", mouse_md)
@@ -571,33 +569,3 @@ plot_cells3D(mouse_spe,
                "#007128",
                "#d99dff"
              ))
-
-
-
-### 4. Ductal epithelium network from human pancreas ----
-ductal_epithelium_md <- spe_metadata_background_template("random")
-ductal_epithelium_md <- spe_metadata_cluster_template("regular", "network", ductal_epithelium_md)
-
-ductal_epithelium_md$background$n_cells <- 30000
-ductal_epithelium_md$background$length <- 100
-ductal_epithelium_md$background$width <- 100
-ductal_epithelium_md$background$height <- 50
-ductal_epithelium_md$background$minimum_distance_between_cells <- 0
-ductal_epithelium_md$background$cell_types <- 
-  c("Epithelium", "Other")
-ductal_epithelium_md$background$cell_proportions <-
-  c(0, 1)
-
-ductal_epithelium_md$cluster_1$cluster_cell_types <- "Epithelium"
-ductal_epithelium_md$cluster_1$cluster_cell_proportions <- 1
-ductal_epithelium_md$cluster_1$n_edges <- 40
-ductal_epithelium_md$cluster_1$width <- 6
-ductal_epithelium_md$cluster_1$centre_loc <- c(75, 50, 25)
-ductal_epithelium_md$cluster_1$radius <- 40
-
-ductal_epithelium_spe <- simulate_spe_metadata3D(ductal_epithelium_md)
-plot_cells3D(ductal_epithelium_spe, 
-             plot_cell_types = 
-               c("Epithelium", "Other"),
-             plot_colours = 
-               c("blue", "lightgray"))
