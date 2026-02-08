@@ -170,6 +170,7 @@ plot_cells3D_with_slices <- function(spe,
   index <- 1
   for (slice_position in slice_positions) {
     
+    #
     slice_position <- slice_position + 1000
     
     vertices <- data.frame(x = c(1000, 1000, 1500, 1500, 1000, 1000, 1500, 1500),
