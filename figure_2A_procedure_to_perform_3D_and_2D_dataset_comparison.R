@@ -170,13 +170,17 @@ plot_cells3D_with_slices <- function(spe,
   index <- 1
   for (slice_position in slice_positions) {
     
-    #
+    # Add 1000, as per previous comment when 1000 was added to all coords
     slice_position <- slice_position + 1000
     
+    # 8 vertices for a slice, as a slice is a very thin rectangular prism
     vertices <- data.frame(x = c(1000, 1000, 1500, 1500, 1000, 1000, 1500, 1500),
                            y = c(1000, 1500, 1000, 1500, 1000, 1500, 1000, 1500),
                            z = rep(slice_position, each = 4))
     
+    
+    # Construct the rectangular prism with triangles that make up each face of the rectangular prism.
+    # Each triangle is shown in each row of the below data frame, e.g. i = 1, j = 2, k = 3 means plot a triangle using vertices 1, 2, 3, as above.
     faces_temp <- data.frame(i = c(1, 4, 5, 8, 1, 6, 1, 1, 4, 4, 2, 2),
                              j = c(2, 2, 6, 6, 5, 5, 3, 5, 8, 3, 4, 6),
                              k = c(3, 3, 7, 7, 2, 2, 7, 7, 7, 7, 8, 8))
