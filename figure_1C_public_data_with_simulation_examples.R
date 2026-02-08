@@ -307,7 +307,7 @@ mouse_hypothalamus_md$cluster_8$radii <- c(20, 30, 20)
 mouse_hypothalamus_md$cluster_8$centre_loc <- c(0, 50, 40)
 mouse_hypothalamus_md$cluster_8$axes_rotation <- c(0, 0, 0)
 
-mouse_hypothalamus_spe <- simulate_spe_metadata3D(mouse_hypothalamus_md)
+mouse_hypothalamus_spe <- simulate_spe_metadata3D(mouse_hypothalamus_md, plot_image = F)
 spatialCoords(mouse_hypothalamus_spe) <- spatialCoords(mouse_hypothalamus_spe) + 1000
 
 mouse_hypothalamus_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping
@@ -421,7 +421,7 @@ egg_md$cluster_8$cluster_cell_proportions <- 1
 egg_md$cluster_8$radius <- 6
 egg_md$cluster_8$centre_loc <- c(80, 50, 32)
 
-egg_spe <- simulate_spe_metadata3D(egg_md)
+egg_spe <- simulate_spe_metadata3D(egg_md, plot_image = F)
 spatialCoords(egg_spe) <- spatialCoords(egg_spe) + 1000
 
 plot_cells3D(egg_spe, 
@@ -552,7 +552,7 @@ mouse_md$cluster_10$radius <- 5
 mouse_md$cluster_10$start_loc <- c(100, 40, 25)
 mouse_md$cluster_10$end_loc <- c(100, 25, 25)
 
-mouse_spe <- simulate_spe_metadata3D(mouse_md)
+mouse_spe <- simulate_spe_metadata3D(mouse_md, plot_image = F)
 spatialCoords(mouse_spe) <- spatialCoords(mouse_spe) + 1000
 plot_cells3D(mouse_spe,
              feature_colname = "Cell.Type",
