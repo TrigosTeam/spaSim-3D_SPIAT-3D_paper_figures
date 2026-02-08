@@ -1,3 +1,5 @@
+# Code for supplementary figure 2 to plot public datasets that correspond to analysis.
+
 ### 2. 3D public data plotting ----
 library(SpatialExperiment)
 library(plotly)

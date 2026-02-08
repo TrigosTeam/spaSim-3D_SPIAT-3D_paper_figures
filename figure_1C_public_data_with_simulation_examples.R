@@ -1,3 +1,5 @@
+# Code for figure 1C to plot 3D public datasets, along with simulated versions of these datasets using spaSim-3D.
+
 ### Functions -----
 library(plotly)
 library(RColorBrewer)

@@ -1,3 +1,4 @@
+# Code for supplementary figure 3 to show 3D and 2D comparison and slicing procedure.
 ### 1. Example simulation ----
 plot_cells3D <- function(spe,
                          plot_cell_types = NULL,

@@ -1,3 +1,4 @@
+# Code for supplementary figure 1 to show SPIAT-3D workflow.
 ### 0. Example simulation ----
 ### 1. Cell colocalisation metrics plots ----
 

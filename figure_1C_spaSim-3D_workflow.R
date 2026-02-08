@@ -1,3 +1,5 @@
+# Code for figure 1C to show spaSim-3D workflow.
+
 # Alter plot_cells3D function ----
 plot_cells3D <- function(spe,
                          plot_cell_types = NULL,

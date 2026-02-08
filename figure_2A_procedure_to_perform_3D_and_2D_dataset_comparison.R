@@ -1,5 +1,5 @@
-# Figure 2A requires to images of 2 example 3D simulations, 
-# and images of those same simulations with a 'slice' being taken from them.
+# Code for figure 2A, to show workflow to perform 3D and 2D simulated dataset comparison (analysis of SD3)
+# Figure 2A requires to images of 2 example 3D simulations, and images of those same simulations with a 'slice' being taken from them.
 
 ### 1. 2 example 3D simulations ----
 plot_cells3D <- function(spe,

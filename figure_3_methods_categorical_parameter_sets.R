@@ -1,3 +1,4 @@
+# Code for figure 3 of the methods to show each categorical parameter set.
 # Alter plot_cells3D function ----
 plot_cells3D <- function(spe,
                          plot_cell_types = NULL,

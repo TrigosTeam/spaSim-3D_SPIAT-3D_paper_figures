@@ -1,3 +1,4 @@
+# Code for figure 2B to plot spaSim-3D simulations that represent each collection.
 ### Example simulations for S3 analysis heatmaps ----
 # Mixed ellipsoids vs mixed ellipsoid
 plot_cells3D <- function(spe,
