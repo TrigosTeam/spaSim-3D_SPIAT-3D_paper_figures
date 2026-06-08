@@ -1,4 +1,9 @@
 # Code for supp notes 1 plots.
+library(plotly)
+library(SpatialExperiment)
+library(spaSim3D)
+library(SPIAT3D)
+
 ### Pairwise distance between cells ----
 plot_pairwise_distance_diagram <- function() {
   x          <- c(400, 300, 100, 250)

@@ -2,7 +2,6 @@
 ### Libraries -----
 library(SpatialExperiment)
 library(dbscan)
-library(alphashape3d)
 library(apcluster)
 library(plotly)
 library(dplyr)
@@ -10,6 +9,8 @@ library(reshape2)
 library(gtools)
 library(cowplot)
 library(Hmisc)
+library(spaSim3D)
+
 
 ### Poisson point process ----
 

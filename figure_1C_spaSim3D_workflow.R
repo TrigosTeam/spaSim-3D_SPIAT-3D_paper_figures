@@ -1,4 +1,6 @@
 # Code for figure 1C to show spaSim-3D workflow.
+library(plotly)
+library(spaSim3D)
 
 # Alter plot_cells3D function ----
 plot_cells3D <- function(spe,
@@ -34,7 +36,7 @@ plot_cells3D <- function(spe,
   }
   
   ## Convert spe object to data frame
-  df <- data.frame(spatialCoords(spe), "Cell.Type" = spe[[feature_colname]])
+  df <- data.frame(SpatialExperiment::spatialCoords(spe), "Cell.Type" = spe[[feature_colname]])
   
   ## If no cell types chosen, use all cell types found in data frame
   if (is.null(plot_cell_types)) {
@@ -104,7 +106,7 @@ background_metadata$background$cell_types <- c('O', 'A')
 background_metadata$background$cell_proportions <- c(0.99, 0.01)
 
 blank_background_spe <- simulate_spe_metadata3D(background_metadata, plot_image = F)
-spatialCoords(blank_background_spe) <- spatialCoords(blank_background_spe) + 1000
+SpatialExperiment::spatialCoords(blank_background_spe) <- SpatialExperiment::spatialCoords(blank_background_spe) + 1000
 plot_cells3D(blank_background_spe, plot_cell_types = c('O', 'A'), plot_colours = c('lightgray', 'orange'))
 
 
@@ -119,7 +121,7 @@ background_metadata$background$cell_types <- c('A', 'B', 'O')
 background_metadata$background$cell_proportions <- c(0.3, 0.1, 0.6)
 
 mixed_background_spe <- simulate_spe_metadata3D(background_metadata, plot_image = F)
-spatialCoords(mixed_background_spe) <- spatialCoords(mixed_background_spe) + 1000
+SpatialExperiment::spatialCoords(mixed_background_spe) <- SpatialExperiment::spatialCoords(mixed_background_spe) + 1000
 plot_cells3D(mixed_background_spe, 
              plot_cell_types = c('A', 'B', 'O'), 
              plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
@@ -159,7 +161,7 @@ clusters_metadata$cluster_3$radius <- 50
 clusters_metadata$cluster_3$centre_loc <- c(100, 0, 100)
 
 clusters_spe <- simulate_spe_metadata3D(clusters_metadata, plot_image = F)
-spatialCoords(clusters_spe) <- spatialCoords(clusters_spe) + 1000
+SpatialExperiment::spatialCoords(clusters_spe) <- SpatialExperiment::spatialCoords(clusters_spe) + 1000
 plot_cells3D(clusters_spe, 
              plot_cell_types = c('A', 'B', 'O'), 
              plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
@@ -203,7 +205,7 @@ ringed_metadata$cluster_3$axes_rotation <- c(0, 30, 0)
 ringed_metadata$cluster_3$centre_loc <- c(50, 50, 35)
 
 ringed_spe <- simulate_spe_metadata3D(ringed_metadata, plot_image = F)
-spatialCoords(ringed_spe) <- spatialCoords(ringed_spe) + 1000
+SpatialExperiment::spatialCoords(ringed_spe) <- SpatialExperiment::spatialCoords(ringed_spe) + 1000
 plot_cells3D(ringed_spe, 
              plot_cell_types = c('A', 'B', 'O'), 
              plot_colours = c('#f77e3b', '#48bbff', 'lightgray'))
@@ -255,7 +257,7 @@ vessels_metadata$cluster_5$start_loc <- c(30, 80, 50)
 vessels_metadata$cluster_5$end_loc <- c(0, 50, 60)
 
 vessels_spe <- simulate_spe_metadata3D(vessels_metadata, plot_image = F)
-spatialCoords(vessels_spe) <- spatialCoords(vessels_spe) + 1000
+SpatialExperiment::spatialCoords(vessels_spe) <- SpatialExperiment::spatialCoords(vessels_spe) + 1000
 plot_cells3D(vessels_spe, 
              plot_cell_types = c('C', 'O'), 
              plot_colours = c('#bb0036', 'lightgray'))
@@ -279,7 +281,7 @@ network_metadata$cluster_1$n_edges <- 35
 network_metadata$cluster_1$width <- 11
   
 network_spe <- simulate_spe_metadata3D(network_metadata, plot_image = F)
-spatialCoords(network_spe) <- spatialCoords(network_spe) + 1000
+SpatialExperiment::spatialCoords(network_spe) <- SpatialExperiment::spatialCoords(network_spe) + 1000
 plot_cells3D(network_spe, plot_cell_types = c('C', 'O'), plot_colours = c('#bb0036', 'lightgray'))
 
 
@@ -332,7 +334,7 @@ combination_metadata$cluster_5$radius <- 25
 combination_metadata$cluster_5$centre_loc <- c(10, 80, 90)
 
 final_spe <- simulate_spe_metadata3D(combination_metadata, plot_image = F)
-spatialCoords(final_spe) <- spatialCoords(final_spe) + 1000
+SpatialExperiment::spatialCoords(final_spe) <- SpatialExperiment::spatialCoords(final_spe) + 1000
 plot_cells3D(final_spe, 
              plot_cell_types = c('A', 'B', 'C', 'D', 'O'), 
              plot_colours = c('#f77e3b', '#48bbff', '#bb0036', '#007128', 'lightgray'))

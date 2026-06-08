@@ -1,8 +1,9 @@
 # Code for figure 1C to plot 3D public datasets, along with simulated versions of these datasets using spaSim-3D.
-
-### Functions -----
 library(plotly)
 library(RColorBrewer)
+library(spaSim3D)
+
+### Functions -----
 plot_cells3D_df <- function(df,
                             plot_cell_types = NULL,
                             plot_colours = NULL,
@@ -136,7 +137,7 @@ plot_cells3D <- function(spe,
   }
   
   ## Convert spe object to data frame
-  df <- data.frame(spatialCoords(spe), "Cell.Type" = spe[[feature_colname]])
+  df <- data.frame(SpatialExperiment::spatialCoords(spe), "Cell.Type" = spe[[feature_colname]])
   
   ## If no cell types chosen, use all cell types found in data frame
   if (is.null(plot_cell_types)) {
@@ -308,7 +309,7 @@ mouse_hypothalamus_md$cluster_8$centre_loc <- c(0, 50, 40)
 mouse_hypothalamus_md$cluster_8$axes_rotation <- c(0, 0, 0)
 
 mouse_hypothalamus_spe <- simulate_spe_metadata3D(mouse_hypothalamus_md, plot_image = F)
-spatialCoords(mouse_hypothalamus_spe) <- spatialCoords(mouse_hypothalamus_spe) + 1000
+SpatialExperiment::spatialCoords(mouse_hypothalamus_spe) <- SpatialExperiment::spatialCoords(mouse_hypothalamus_spe) + 1000
 
 mouse_hypothalamus_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping <- merfish_squidpy_cell_type_color_mapping
 mouse_hypothalamus_cell_type_color_mapping$Cell_Type[mouse_hypothalamus_cell_type_color_mapping$Cell_Type == "Endothelial 2"] <- "Endothelial"
@@ -422,7 +423,7 @@ egg_md$cluster_8$radius <- 6
 egg_md$cluster_8$centre_loc <- c(80, 50, 32)
 
 egg_spe <- simulate_spe_metadata3D(egg_md, plot_image = F)
-spatialCoords(egg_spe) <- spatialCoords(egg_spe) + 1000
+SpatialExperiment::spatialCoords(egg_spe) <- SpatialExperiment::spatialCoords(egg_spe) + 1000
 
 plot_cells3D(egg_spe, 
              plot_cell_types = 
@@ -553,7 +554,7 @@ mouse_md$cluster_10$start_loc <- c(100, 40, 25)
 mouse_md$cluster_10$end_loc <- c(100, 25, 25)
 
 mouse_spe <- simulate_spe_metadata3D(mouse_md, plot_image = F)
-spatialCoords(mouse_spe) <- spatialCoords(mouse_spe) + 1000
+SpatialExperiment::spatialCoords(mouse_spe) <- SpatialExperiment::spatialCoords(mouse_spe) + 1000
 plot_cells3D(mouse_spe,
              feature_colname = "Cell.Type",
              plot_cell_types = cells,

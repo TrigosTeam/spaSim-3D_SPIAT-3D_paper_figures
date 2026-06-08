@@ -1,4 +1,9 @@
 # Code for supplementary figure 1 to show SPIAT-3D workflow.
+library(plotly)
+library(SpatialExperiment)
+library(spaSim3D)
+library(SPIAT3D)
+
 ### 0. Example simulation ----
 ### 1. Cell colocalisation metrics plots ----
 
@@ -28,7 +33,7 @@ trace_lines <- add_trace(
   y = ~y_lines,
   z = ~z_lines,
   line = list(color = "black", width = 3)
-  )
+)
 
 # Add markers
 trace_markers <- add_trace(
@@ -543,14 +548,19 @@ spe_cluster <- simulate_spe_metadata3D(cluster_metadata)
 plot_cells3D(spe_cluster, plot_cell_types = c('A', 'B'), plot_colours = c('#f77e3b', '#48bbff'))
 
 # 3.2. Clustering algorithm ----
-spe_ah <- alpha_hull_clustering3D(spe_cluster, 'A', 28, 100)
+if (Sys.info()[["sysname"]] == "Darwin") {
+  options(rgl.useNULL = TRUE)
+  options(rgl.printRglwidget = TRUE)
+}
+
+spe_ah <- alpha_hull_clustering3D(spe_cluster, 'A', 27, 100)
 
 # Adjust plot_alpha_hull_cluster3D function to change colors
 plot_alpha_hull_clusters_updated3D <- function(spe_with_alpha_hull, 
-                                       plot_cell_types = NULL,
-                                       plot_colours = NULL,
-                                       alpha_hull_colours,
-                                       feature_colname = "Cell.Type") {
+                                               plot_cell_types = NULL,
+                                               plot_colours = NULL,
+                                               alpha_hull_colours,
+                                               feature_colname = "Cell.Type") {
   
   # Check input parameters
   if (class(spe_with_alpha_hull) != "SpatialExperiment") {
@@ -621,7 +631,7 @@ plot_alpha_hull_clusters_updated3D <- function(spe_with_alpha_hull,
   
   vertices <- spe_with_alpha_hull@metadata$alpha_hull$vertices
   faces <- data.frame(spe_with_alpha_hull@metadata$alpha_hull$faces)
-
+  
   ## Add alpha hulls to fig, one by one  
   for (i in seq(n_alpha_hulls)) {
     faces_temp <- faces[faces[ , 1] %in% which(alpha_hull_clusters == i) , ]
